@@ -7,7 +7,7 @@ function Agent(x, y, env, color) {
   this._previousOffset={x:0,y:0};
   this._changeDir=false;
 
-  if (typeof Agent.initialized !== true) {
+  if ( Agent.initialized !== true) {
 
     Agent.prototype.x = function () {
       return this._pos.x;

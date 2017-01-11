@@ -9,7 +9,7 @@ function WebGLVue(HTMLContainer, environment) {
   this._refresh = config.refresh || 1;
   this._tick = this._refresh; // for drawing at the first tick
   
-  if (typeof WebGLVue.initialized !== true) {
+  if ( WebGLVue.initialized !== true) {
 
   this._idGenerator=0;
 
@@ -24,6 +24,7 @@ function WebGLVue(HTMLContainer, environment) {
     };
     
     WebGLVue.prototype._repaint = function (agents) {
+console.log(this)
       //drawing
       for (var i = 0; i < agents.length; i++) {
         if(agents.geometry==null){
@@ -74,7 +75,7 @@ function WebGLVue(HTMLContainer, environment) {
       this._renderer= renderer;
       this._camera=camera;
       this._scene=scene;
-
+console.log(this)
 			render();
     };
 

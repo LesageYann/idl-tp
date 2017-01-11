@@ -9,7 +9,7 @@ function Environment(x,y,toric){
     this._plan[i]= [];
   }
   
-  if (typeof Environment.initialized !== true) {
+  if (Environment.initialized !== true) {
 
     Environment.prototype.isToric = function () {
       return this._toric;

@@ -8,7 +8,7 @@ function TableVue(HTMLContainer, environment) {
 
   HTMLContainer.appendChild(this._style);
 
-  if (typeof TableVue.initialized !== true) {
+  if (TableVue.initialized !== true) {
 
     TableVue.prototype.update = function (agents) {
       //control refresh ofdrawing
