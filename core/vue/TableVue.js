@@ -25,8 +25,8 @@ function TableVue(HTMLContainer, environment) {
       for (var x = 0; x < this._env.xSize(); x++) {
         for (var y = 0; y < this._env.ySize(); y++) {
           if (!this._env.isFree(x, y)) {
-            style += " #x"+x+"y"+y+"{ background:"+
-                    this._env._plan[x][y].color()+";}";
+            style += " #x"+x+"y"+y+"{ "+
+                    this._env._plan[x][y].style()+";}";
           } 
         }
       }
