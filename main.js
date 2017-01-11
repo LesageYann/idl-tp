@@ -18,7 +18,7 @@ window.onload=function(){
           x= Math.floor(Math.random() * config.grid.size.x);
           y= Math.floor(Math.random() * config.grid.size.y);
         }
-        agents.push(new Agent(x,y,env));
+        agents.push(createAgent(keys[i],x,y,env));
         env.moveAgent(agents[agents.length-1],{x:x,y:y});
       }
     }

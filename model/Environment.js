@@ -52,10 +52,10 @@ function Environment(x,y,toric){
     Environment.prototype._handleBound= function(newPos){
       if(this._toric){
         if(newPos.x >= this._x || newPos.x <0){
-          newPos.x= ( newPos.x + this._x )%2;
+          newPos.x= ( newPos.x + this._x )%this._x;
         }
         if(newPos.y >= this._y || newPos.y <0){
-          newPos.y= ( newPos.y + this._y )%2;
+          newPos.y= ( newPos.y + this._y )%this._y;
         }
       }else{
         if(newPos.x >= this._x || newPos.x <0){
@@ -83,7 +83,9 @@ function Environment(x,y,toric){
     };
     
     Environment.prototype.case= function(x,y){
-      return this._plan[x][y];
+      newpos= {x:x,y:y};
+      this._handleBound(newpos);
+      return this._plan[newpos.x][newpos.y];
     };
     
     Environment.prototype.isFree= function(x,y){

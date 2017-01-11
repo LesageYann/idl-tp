@@ -36,10 +36,10 @@ function TableVue(HTMLContainer, environment) {
 
     TableVue.prototype.init = function () {
       this._basicStyle = "table{border-collapse: collapse;width:" +
-              ((config.grid.size.x + 1) * config.box.size + 50) + config.box.unit +
+              (config.grid.size.x  * config.box.size) + config.box.unit +
               "}#view{max-width:" + config.canvasSize.x + config.canvasSize.unit +
               ";max-height:" + config.canvasSize.x + config.canvasSize.unit +
-              ";overflow: auto;}td{border:#f8f8f8 solid 1px;width: " + config.box.size +
+              ";overflow: auto;}td{box-sizing: border-box;border:#f8f8f8 solid 1px;width: " + config.box.size +
               config.box.unit + "; height: " + config.box.size + config.box.unit + "}";
       this._style.innerHTML= this._basicStyle;
       var oldTable = this._canvas;

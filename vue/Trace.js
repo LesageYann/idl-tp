@@ -23,10 +23,10 @@ function Trace(HTMLContainer, environment) {
     Trace.prototype.update = function (agents) {
       for (var i = 0; i < agents.length; i++) {
         if (agents[i].changeDir()) {
-          this._trace += "Agent;\n";
+          this._trace += "Agent;\r\n";
         }
       }
-      this._trace += "Tick;\n";
+      this._trace += "Tick;\r\n";
     };
 
     Trace.prototype.saveFiche = function () {

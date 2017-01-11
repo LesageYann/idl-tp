@@ -14,29 +14,26 @@ function WebGLVue(HTMLContainer, environment) {
   this._idGenerator=0;
 
     WebGLVue.prototype.update = function (agents) {
-      console.log(agents)
       if (this._tick == this._refresh) {
-        //this._repaint(agents);
-        requestAnimationFrame(this._repaint);
+        this._repaint(agents);
+        //requestAnimationFrame(this._repaint);
         this._tick = 0;
       }
       this._tick++;
     };
     
     WebGLVue.prototype._repaint = function (agents) {
-console.log(this)
       //drawing
       for (var i = 0; i < agents.length; i++) {
         if(agents.geometry==null){
           this.createAgent(agents[i]);
         }else{
-          agents[i].geometry.translate(
-                agents[i].x()*this._boxSize,
-                agents[i].y()*this._boxSize,0);
+          agents[i].geometry.position.x=( agents[i].x()*this._boxSize);
+          agents[i].geometry.position.y=( agents[i].y()*this._boxSize);
         }
       }
-      this._renderer.render(this._camera, this._scene);
-//			requestAnimationFrame( this._repaint );
+      console.log(this._camera, this._scene)
+      this._render();
     };
 
     WebGLVue.prototype.init = function () {
@@ -64,7 +61,6 @@ console.log(this)
       camera.position.y=h;
 
 			var render = function () {
-				requestAnimationFrame( render );
 
 				//cube.rotation.x += 0.1;
 				//cube.rotation.y += 0.1;
@@ -75,7 +71,7 @@ console.log(this)
       this._renderer= renderer;
       this._camera=camera;
       this._scene=scene;
-console.log(this)
+      this._render=render
 			render();
     };
 
