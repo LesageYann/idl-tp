@@ -21,26 +21,27 @@ function TableVue(HTMLContainer, environment) {
 
     TableVue.prototype._repaint = function (agents) {
       //drawing
+      var style =this._basicStyle ;
       for (var x = 0; x < this._env.xSize(); x++) {
         for (var y = 0; y < this._env.ySize(); y++) {
           if (!this._env.isFree(x, y)) {
-            this._canvas.children[y].children[x].style.background =
-                    this._env._plan[x][y].color();
-          } else if (this._canvas.children[y].children[x].style.background != "") {
-            this._canvas.children[y].children[x].style.background = "";
-          }
+            style += " #x"+x+"y"+y+"{ background:"+
+                    this._env._plan[x][y].color()+";}";
+          } 
         }
       }
+      this._style.innerHTML=style;
     };
 
 
     TableVue.prototype.init = function () {
-      this._style.innerHTML = "table{border-collapse: collapse;width:" +
+      this._basicStyle = "table{border-collapse: collapse;width:" +
               ((config.grid.size.x + 1) * config.box.size + 50) + config.box.unit +
               "}#view{max-width:" + config.canvasSize.x + config.canvasSize.unit +
               ";max-height:" + config.canvasSize.x + config.canvasSize.unit +
-              ";overflow: auto;}td{border:black solid 1px;width: " + config.box.size +
+              ";overflow: auto;}td{border:#f8f8f8 solid 1px;width: " + config.box.size +
               config.box.unit + "; height: " + config.box.size + config.box.unit + "}";
+      this._style.innerHTML= this._basicStyle;
       var oldTable = this._canvas;
       this._canvas = document.createElement('table');
       for (var y = 0; y < this._env.ySize(); y++) {
@@ -48,17 +49,9 @@ function TableVue(HTMLContainer, environment) {
         this._canvas.appendChild(tr);
 
         for (var x = 0; x < this._env.xSize(); x++) {
-          tr.insertCell(x);
+          tr.insertCell(x).id="x"+x+"y"+y;
         }
-        tr.insertCell(this._env.xSize()).innerHTML = y;
       }
-      var tr = document.createElement('tr');
-      this._canvas.appendChild(tr);
-
-      for (var x = 0; x < this._env.xSize(); x++) {
-        tr.insertCell(x).innerHTML = "" + x;
-      }
-      tr.insertCell(this._env.xSize()).innerHTML = "x\y";
 
       if (config.canvasDisplay) {
         if (oldTable == null) {
