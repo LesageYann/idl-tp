@@ -25,7 +25,7 @@ window.onload=function(){
     sma= new SMA(agents, config.refresh);
     env.setSMA(sma);
     sma.addObserver(vue);
-    vue.update();
+    vue.update(agents);
   }
   
   function createTrace(){
@@ -36,7 +36,7 @@ window.onload=function(){
   }
   
   env= new Environment(config.grid.size.x,config.grid.size.y, config.grid.toric);
-  vue= new TableVue(document.getElementById('view'),env);
+  vue= createVue( config.render || "TableVue",document.getElementById('view'),env);
   
   createAgents(config.particules);
   createTrace();
