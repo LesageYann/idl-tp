@@ -2,8 +2,8 @@ var config={
   grid:{
     toric: true,
     size: {
-      x:15, //default 50
-      y:15  //default 50
+      x:50, //default 50
+      y:50  //default 50
     }
   },
   canvasDisplay: true,
@@ -18,12 +18,13 @@ var config={
   },
   delay:50, //if delay null, manual refresh
   sheduling: "fair",//value radom, sequential,fair
-  nbTicks:0, //infinite if 0
+  nbTicks:50, //infinite if 0
   trace: true,
   seed: 'any string you like', //radom if null
-  refresh:4, //if(tick%refresh ==0)
+  refresh:1, //if(tick%refresh ==0)
   particules:{
     Agents: 6
-  }
+  },
+  render:"WebGLVue"// WebGLVue or TableVue
 };
 

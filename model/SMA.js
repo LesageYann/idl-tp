@@ -5,11 +5,10 @@ function SMA(agents) {
   this._hasChanged = false;
   this._tick = 0;
 
-  if (typeof SMA.initialized !== true) {
-
+  if (SMA.initialized !== true) {
     /*Make a shuffle of agents
      */
-    function random(sma) {
+    function fair(sma) {
       var j, x, i;
       for (i = sma._agents.length; i; i--) {
         j = Math.floor(Math.random() * i);
@@ -17,32 +16,38 @@ function SMA(agents) {
         sma._agents[i - 1] = sma._agents[j];
         sma._agents[j] = x;
       }
+      sma._executeTurn.sequential(sma);
     };
     
-    function fair(sma) {
-      var agent = sma._agents.splice(0,1)[0];
-      sma._agents.push(agent);
+    function random(sma) {
+      var i, l=sma._agents.length;
+      for (i = l; i; i--) {
+        sma._agents[Math.floor(Math.random() * l)].decide();
+      }
     };
     
     function sequential(sma){
       //nothing todo, always the same order
+      for (i = 0; i < sma._agents.length; i++) {
+        sma._agents[i].decide();
+      }
     }
 
-    SMA.prototype._beforeTurn = {
+    SMA.prototype._executeTurn = {
       fair : fair,
       random: random,
       sequential: sequential
     };
 
     SMA.prototype.run = function () {
-      self = this;
-      self._tick = 1;
-      self._inTurn = false;
-      if (config.delay != 0) {
-        self._intervalID = window.setInterval(function () {
-          self.launchTurn(self);
-        }, config.delay);
-      }
+        self = this;
+        self._tick = 1;
+        self._inTurn = false;
+        if (config.delay != 0) {
+          self._intervalID = window.setInterval(function () {
+            self.launchTurn(self);
+          }, config.delay);
+        }
     };
 
     SMA.prototype.launchTurn = function () {
@@ -60,10 +65,8 @@ function SMA(agents) {
     };
 
     SMA.prototype.turn = function () {
-      this._beforeTurn[config.sheduling](this);
-      for (i = 0; i < this._agents.length; i++) {
-        this._agents[i].decide();
-      }
+      this._executeTurn[config.sheduling](this);
+      
       if (this.hasChanged() ) {
         this.notifyObserver();
       }

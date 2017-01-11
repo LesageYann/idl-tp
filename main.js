@@ -18,14 +18,14 @@ window.onload=function(){
           x= Math.floor(Math.random() * config.grid.size.x);
           y= Math.floor(Math.random() * config.grid.size.y);
         }
-        agents.push(new Agent(x,y,env));
+        agents.push(createAgent(keys[i],x,y,env));
         env.moveAgent(agents[agents.length-1],{x:x,y:y});
       }
     }
     sma= new SMA(agents, config.refresh);
     env.setSMA(sma);
     sma.addObserver(vue);
-    vue.update();
+    vue.update(agents);
   }
   
   function createTrace(){
@@ -36,7 +36,7 @@ window.onload=function(){
   }
   
   env= new Environment(config.grid.size.x,config.grid.size.y, config.grid.toric);
-  vue= new TableVue(document.getElementById('view'),env);
+  vue= createVue( config.render || "TableVue",document.getElementById('view'),env);
   
   createAgents(config.particules);
   createTrace();

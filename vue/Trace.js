@@ -18,15 +18,15 @@ function Trace(HTMLContainer, environment) {
   this.root.appendChild(this._trigger);
   document.getElementById("panel").appendChild(this.root);
 
-  if (typeof Trace.initialized !== true) {
+  if ( Trace.initialized !== true) {
 
     Trace.prototype.update = function (agents) {
       for (var i = 0; i < agents.length; i++) {
         if (agents[i].changeDir()) {
-          this._trace += "Agent;\n";
+          this._trace += "Agent;\r\n";
         }
       }
-      this._trace += "Tick;\n";
+      this._trace += "Tick;\r\n";
     };
 
     Trace.prototype.saveFiche = function () {
