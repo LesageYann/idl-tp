@@ -3,8 +3,8 @@
 
 class Shark extends Agent {
   constructor(x, y, env, style) {
-    var styleAdult = "background-image: url(../images/shark-red.png);  background-size: 20px 10px;";
-    var styleBaby = "background-image: url(../images/shark-pink.png);  background-size: 10px 10px;";
+    var styleAdult = "background-image: url(../images/shark-red.png);  background-size: " + config.box.size + "px " + config.box.size + "px;";
+    var styleBaby = "background-image: url(../images/shark-pink.png);  background-size: " + config.box.size + "px " + config.box.size + "px;";
 
     super(x, y, env, (styleAdult));
   };
