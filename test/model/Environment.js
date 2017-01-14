@@ -63,7 +63,7 @@ describe( "Environment", function () {
           x: 20,
           y: 20
         } );
-        expect( env.case( {
+        expect( env.getCase( {
           x: 20,
           y: 20
         } ) ).to.equal( mockAgent );

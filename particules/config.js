@@ -27,4 +27,3 @@ var config = {
   },
   render: "TableVue"// WebGLVue or TableVue
 };
-
