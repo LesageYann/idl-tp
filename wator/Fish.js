@@ -8,6 +8,7 @@ class Fish extends Agent {
     var styleBaby = "background-image: url(../images/fish-green.png);  background-size: " + config.box.size + "px " + config.box.size + "px;";
 
     super(x, y, env, (styleAdult));
+    this.setName('Fish');
   };
 
   decide() {

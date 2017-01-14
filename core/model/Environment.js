@@ -11,6 +11,7 @@ class Environment {
     for (var i = 0; i < this._x; i++) {
       this._plan[i] = [];
     }
+    this.smaSet = false;
   }
 
   isToric() {
@@ -27,6 +28,7 @@ class Environment {
 
   setSMA(sma) {
     this._sma = sma;
+    this.smaSet = true;
     //sma.addObserver(this);
   };
 
@@ -100,5 +102,13 @@ class Environment {
   isFree(pos) {
     return this._plan[pos.x][pos.y] == null;
   };
+
+  getNumberOfAgents() {
+    console.log(this._sma);
+    if (this.smaSet) {
+      return this._sma.getNumberOfAgents();
+    }
+    return {};
+  }
 
 }

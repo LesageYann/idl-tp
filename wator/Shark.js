@@ -7,6 +7,7 @@ class Shark extends Agent {
     var styleBaby = "background-image: url(../images/shark-pink.png);  background-size: " + config.box.size + "px " + config.box.size + "px;";
 
     super(x, y, env, (styleAdult));
+    this.setName('Shark');
   };
 
   decide() {

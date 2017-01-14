@@ -58,6 +58,20 @@ class SMA {
     this._hasChanged = false;
   };
 
+  getNumberOfAgents() {
+    var agents = {};
+    for (var i = 0; i < this._agents.length; i++) {
+      if(! agents[this._agents[i]._name]){
+        agents[this._agents[i]._name] = 0;
+      }
+      agents[this._agents[i]._name] ++;
+    }
+    return agents;
+  }
+
+  getTick(){
+    return this._tick;
+  }
 }
 
 ( function () {

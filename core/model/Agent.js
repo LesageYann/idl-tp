@@ -3,6 +3,7 @@
 class Agent {
 
   constructor(x, y, env, style) {
+    this._name = 'Agent';
     this._pos = {
       x: x,
       y: y
@@ -39,6 +40,10 @@ class Agent {
     this._env.setAgentAt(this, pos);
     this._pos = pos;
   };
+
+  setName(name) {
+    this._name = name;
+  }
 
   changeDir() {
     return this._changeDir;
