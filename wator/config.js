@@ -26,10 +26,11 @@ var config = {
     Fish: 1
   },
   fish: {
-    breedTime: 10
+    breedTime: 100
   },
   shark: {
-    breedTime: 10
+    breedTime: 100,
+    starveTime: 10,
   },
   render: "TableVue" // WebGLVue or TableVue
 };
