@@ -38,7 +38,7 @@ function Trace(HTMLContainer, environment) {
                       , {type: "text/plain;charset=" + document.characterSet})
               , name + ".csv"
               );
-    }
+    };
 
 
     Trace.initialized = true;

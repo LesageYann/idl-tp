@@ -1,5 +1,5 @@
 class SMA {
-  constructor( agents ) {
+  constructor(agents) {
     this._agents = agents;
     this._observers = [];
     this._hasChanged = false;
@@ -10,21 +10,21 @@ class SMA {
     self = this;
     self._tick = 1;
     self._inTurn = false;
-    if ( config.delay != 0 ) {
-      self._intervalID = window.setInterval( function () {
-        self.launchTurn( self );
-      }, config.delay );
+    if (config.delay != 0) {
+      self._intervalID = window.setInterval(function () {
+        self.launchTurn(self);
+      }, config.delay);
     }
   };
 
   launchTurn() {
     self = this;
-    if ( !self._inTurn ) {
+    if (!self._inTurn) {
       self._inTurn = true;
       self.turn();
-      if ( self._tick == config.nbTicks ) {
-        console.log( "clear interval" )
-        clearInterval( self._intervalID );
+      if (self._tick == config.nbTicks) {
+        console.log("clear interval")
+        clearInterval(self._intervalID);
       }
       self._tick++;
       self._inTurn = false;
@@ -32,9 +32,9 @@ class SMA {
   };
 
   turn() {
-    this._executeTurn[ config.sheduling ]( this );
+    this._executeTurn[config.sheduling](this);
 
-    if ( this.hasChanged() ) {
+    if (this.hasChanged()) {
       this.notifyObserver();
     }
   };
@@ -47,42 +47,56 @@ class SMA {
     this._hasChanged = true;
   };
 
-  addObserver( observer ) {
-    this._observers.push( observer );
+  addObserver(observer) {
+    this._observers.push(observer);
   };
 
   notifyObserver() {
-    for ( var i = 0; i < this._observers.length; i++ ) {
-      this._observers[ i ].update( this._agents );
+    for (var i = 0; i < this._observers.length; i++) {
+      this._observers[i].update(this._agents);
     }
     this._hasChanged = false;
   };
 
+  getNumberOfAgents() {
+    var agents = {};
+    for (var i = 0; i < this._agents.length; i++) {
+      if(! agents[this._agents[i]._name]){
+        agents[this._agents[i]._name] = 0;
+      }
+      agents[this._agents[i]._name] ++;
+    }
+    return agents;
+  }
+
+  getTick(){
+    return this._tick;
+  }
 }
 
 ( function () {
-  function fair( sma ) {
+  function fair(sma) {
     var j, x, i;
-    for ( i = sma._agents.length; i; i-- ) {
-      j = Math.floor( Math.random() * i );
-      x = sma._agents[ i - 1 ];
-      sma._agents[ i - 1 ] = sma._agents[ j ];
-      sma._agents[ j ] = x;
+    for (i = sma._agents.length; i; i--) {
+      j = Math.floor(Math.random() * i);
+      x = sma._agents[i - 1];
+      sma._agents[i - 1] = sma._agents[j];
+      sma._agents[j] = x;
     }
-    sma._executeTurn.sequential( sma );
+    sma._executeTurn.sequential(sma);
   };
 
-  function random( sma ) {
+  function random(sma) {
     var i, l = sma._agents.length;
-    for ( i = l; i; i-- ) {
-      sma._agents[ Math.floor( Math.random() * l ) ].decide();
+    for (i = l; i; i--) {
+      sma._agents[Math.floor(Math.random() * l)].decide();
     }
   };
 
-  function sequential( sma ) {
+  function sequential(sma) {
     //nothing todo, always the same order
-    for ( i = 0; i < sma._agents.length; i++ ) {
-      sma._agents[ i ].decide();
+    for (i = 0; i < sma._agents.length; i++) {
+      sma._agents[i].decide();
     }
   }
 
