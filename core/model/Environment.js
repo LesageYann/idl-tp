@@ -81,7 +81,6 @@ class Environment {
   };
 
   _addToFree(x, y, arr) {
-    console.log('add to free', x, y);
     var pos = {
       x: x,
       y: y
@@ -104,11 +103,17 @@ class Environment {
   };
 
   getNumberOfAgents() {
-    console.log(this._sma);
     if (this.smaSet) {
       return this._sma.getNumberOfAgents();
     }
     return {};
+  }
+
+  getTick(){
+    if (this.smaSet) {
+      return this._sma.getTick();
+    }
+    return 0;
   }
 
 }

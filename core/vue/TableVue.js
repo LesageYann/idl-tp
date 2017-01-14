@@ -7,7 +7,7 @@ class TableVue {
     this._refresh = config.refresh || 1;
     this._tick = this._refresh; // for drawing at the first tick
 
-    HTMLContainer.appendChild(this._style);
+    this._container.appendChild(this._style);
 
     if (TableVue.initialized !== true) {
 
@@ -27,6 +27,37 @@ class TableVue {
     this.init();
   }
 
+
+
+  _repaintInfos() {
+    var oldDiv = this._div;
+    this._div = document.createElement('div');
+    var span = document.createElement('span');
+    var numberOfAgents = this._env.getNumberOfAgents();
+    var agentsDetails = 'Tick: ' + this._env.getTick() + "\n<br/><br/>";
+
+    for (var agentName in numberOfAgents) {
+      agentsDetails += agentName + "\n Population: " + numberOfAgents[agentName] + "\n<br/>" +
+        "#Initial : " + config.particules[agentName] + "\n<br/>";
+      for (var params in config.params[agentName]) {
+        agentsDetails += params + ": " + config.params[agentName][params] + "\n<br/>";
+      }
+      agentsDetails += "<br/>";
+
+    }
+
+    span.innerHTML = agentsDetails;
+    this._div.appendChild(span);
+
+    if (config.canvasDisplay) {
+      if (oldDiv == null) {
+        this._container.appendChild(this._div);
+      } else {
+        this._container.replaceChild(this._div, oldDiv);
+      }
+    }
+  };
+
   _repaint(agents) {
     //drawing
     var style = this._basicStyle;
@@ -43,8 +74,8 @@ class TableVue {
       }
     }
     this._style.innerHTML = style;
-    console.log(this._env.getNumberOfAgents());
 
+    this._repaintInfos();
   };
 
   init() {
@@ -66,16 +97,6 @@ class TableVue {
       }
     }
 
-    var canvas = document.createElement('table');
-    var tr = document.createElement('tr');
-    canvas.appendChild(tr);
-    for (var x = 0; x < this._env.xSize(); x++) {
-      var cell = tr.insertCell(x);
-      cell.id = "test " + x;
-      cell.innerHTML = 'test';
-    }
-
-
     if (config.canvasDisplay) {
       if (oldTable == null) {
         this._container.appendChild(this._canvas);
@@ -83,8 +104,5 @@ class TableVue {
         this._container.replaceChild(this._canvas, oldTable);
       }
     }
-
-    this._container.appendChild(canvas);
-
   };
 }
