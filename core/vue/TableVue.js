@@ -38,6 +38,7 @@ function TableVue( HTMLContainer, environment ) {
       this._style.innerHTML = style;
     };
 
+    }
 
     TableVue.prototype.init = function () {
       this._basicStyle = "table{border-collapse: collapse;width:" +
@@ -57,6 +58,8 @@ function TableVue( HTMLContainer, environment ) {
           tr.insertCell( x ).id = "x" + x + "y" + y;
         }
       }
+    }
+  };
 
       if ( config.canvasDisplay ) {
         if ( oldTable == null ) {
@@ -65,11 +68,25 @@ function TableVue( HTMLContainer, environment ) {
           this._container.replaceChild( this._canvas, oldTable );
         }
       }
-    };
+    }
+    this._style.innerHTML = style;
 
+    this._repaintInfos();
+  };
 
-    TableVue.initialized = true;
-  }
+  init() {
+    this._basicStyle = "table{border-collapse: collapse;width:" +
+      (config.grid.size.x * config.box.size) + config.box.unit +
+      "}#view{max-width:" + config.canvasSize.x + config.canvasSize.unit +
+      ";max-height:" + config.canvasSize.x + config.canvasSize.unit +
+      ";overflow: auto;}td{box-sizing: border-box;border:#f8f8f8 solid 1px;width: " + config.box.size +
+      config.box.unit + "; height: " + config.box.size + config.box.unit + "}";
+    this._style.innerHTML = this._basicStyle;
+    var oldTable = this._canvas;
+    this._canvas = document.createElement('table');
+    for (var y = 0; y < this._env.ySize(); y++) {
+      var tr = document.createElement('tr');
+      this._canvas.appendChild(tr);
 
   this.init();
 };

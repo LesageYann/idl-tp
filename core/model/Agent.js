@@ -2,17 +2,18 @@
  */
 class Agent {
 
-  constructor( x, y, env, style ) {
+  constructor(x, y, env, style) {
+    this._name = 'Agent';
     this._pos = {
       x: x,
       y: y
     };
-    this._style = style || ( "background:rgb(" + Math.floor( Math.random() * 200 ) +
-      "," + Math.floor( Math.random() * 200 ) + "," +
-      Math.floor( Math.random() * 200 ) + ")" );
+    this._style = style || ( "background:rgb(" + Math.floor(Math.random() * 200) +
+      "," + Math.floor(Math.random() * 200) + "," +
+      Math.floor(Math.random() * 200) + ")" );
     this._env = env;
     this._changeDir = false;
-    this.offset = Agent.direction[ Math.floor( Math.random() * 8 ) ];
+    this.offset = Agent.direction[Math.floor(Math.random() * 8)];
   }
 
   x() {
@@ -35,10 +36,14 @@ class Agent {
     throw new SubClassesResponsability( "decide" );
   };
 
-  setPos( pos ) {
-    this._env.setAgentAt( this, pos );
+  setPos(pos) {
+    this._env.setAgentAt(this, pos);
     this._pos = pos;
   };
+
+  setName(name) {
+    this._name = name;
+  }
 
   changeDir() {
     return this._changeDir;
