@@ -69,20 +69,25 @@ class Environment {
   };
 
   aroundFree( pos ) {
-    varres = [];
+    var res = [];
     for ( i = -1; i < 2; i++ ) {
-      this._addToFree( x + i, y + i, res );
-      this._addToFree( x + i, y + i + 1, res );
+      this._addToFree( {
+        x: pos.x + i,
+        y: pos.y + i
+      }, res );
+      this._addToFree( {
+        x: pos.x + i,
+        y: pos.y + i + 1
+      }, res );
     }
     return res;
   };
 
-  _addToFree( x, y, arr ) {
-    if ( this.isFree( x, y ) ) {
-      arr.push( {
-        x: x,
-        y: y
-      } );
+  _addToFree( pos, arr ) {
+    console.log( pos );
+    this._handleBound( pos );
+    if ( this.isFree( pos ) ) {
+      arr.push( pos );
     }
   };
 
@@ -92,6 +97,7 @@ case ( pos ) {
 };
 
 isFree( pos ) {
+  console.log( pos )
   return this._plan[ pos.x ][ pos.y ] == null;
 };
 

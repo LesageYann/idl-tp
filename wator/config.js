@@ -23,7 +23,13 @@ var config = {
   seed: 'any string', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Particule: 100
+    Fish: 10
+  },
+  fish: {
+    breedTime: 10
+  },
+  shark: {
+    breedTime: 10
   },
   render: "TableVue" // WebGLVue or TableVue
 };

@@ -32,7 +32,7 @@ class Agent {
   };
 
   decide() {
-    throw new SubClassesResponsability( "decide" )
+    throw new SubClassesResponsability( "decide" );
   };
 
   setPos( pos ) {
@@ -44,6 +44,8 @@ class Agent {
     return this._changeDir;
   };
 }
+
+Agent.init = {};
 
 Agent.direction = [
   {

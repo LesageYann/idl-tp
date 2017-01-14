@@ -21,8 +21,8 @@ window.onload = function () {
         }
         agents.push( createAgent( keys[ i ], pos.x, pos.y, env ) );
         env.moveAgent( agents[ agents.length - 1 ], {
-          x: x,
-          y: y
+          x: pos.x,
+          y: pos.y
         } );
       }
     }
@@ -62,22 +62,4 @@ window.onload = function () {
       return res;
     }
   };
-};
-();
-
-main = {
-  nextTick: function () {
-    sma.launchTurn();
-  },
-  agents: function () {
-    return agents;
-  },
-  printAgents: function () {
-    var res = "";
-    for ( i = 0; i < agents.length; i++ ) {
-      res = res + "x: " + agents[ i ].x() + " y: " + agents[ i ].y() + "\n";
-    }
-    return res;
-  }
-};
 };
