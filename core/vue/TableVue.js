@@ -32,6 +32,7 @@ class TableVue {
   _repaintInfos() {
     var oldDiv = this._div;
     this._div = document.createElement('div');
+    this._div.className="col-xs-6";
     var span = document.createElement('span');
     var numberOfAgents = this._env.getNumberOfAgents();
     var agentsDetails = 'Tick: ' + this._env.getTick() + "\n<br/><br/>";
@@ -39,11 +40,12 @@ class TableVue {
     for (var agentName in numberOfAgents) {
       agentsDetails += agentName + "\n Population: " + numberOfAgents[agentName] + "\n<br/>" +
         "#Initial : " + config.particules[agentName] + "\n<br/>";
-      for (var params in config.params[agentName]) {
-        agentsDetails += params + ": " + config.params[agentName][params] + "\n<br/>";
+      if(config.params) {
+        for (var params in config.params[agentName]) {
+          agentsDetails += params + ": " + config.params[agentName][params] + "\n<br/>";
+        }
+        agentsDetails += "<br/>";
       }
-      agentsDetails += "<br/>";
-
     }
 
     span.innerHTML = agentsDetails;
@@ -88,6 +90,8 @@ class TableVue {
     this._style.innerHTML = this._basicStyle;
     var oldTable = this._canvas;
     this._canvas = document.createElement('table');
+    this._canvas.className = "col-xs-6";
+
     for (var y = 0; y < this._env.ySize(); y++) {
       var tr = document.createElement('tr');
       this._canvas.appendChild(tr);
