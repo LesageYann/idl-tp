@@ -12,6 +12,7 @@ class Animal extends Agent {
       this._move( possible[ Math.floor( Math.random() * possible.length ) ] );
     }
     this.breed();
+    console.log( "agent end", this._pos );
   };
 
   _perception() {
@@ -30,19 +31,7 @@ class Animal extends Agent {
 
   _move( pos, offset ) {
     var agent;
-    try {
-      this._env.moveAgent( this, pos );
-    } catch ( e ) {
-      if ( offset == null ) {
-        throw e;
-      }
-      pos[ e.direction() ] = this[ "_" + e.direction() ] - offset[ e.direction() ];
-      agent = this._env.moveAgent( this, pos );
-    }
-    if ( offset != null ) {
-      this._changeDir = !( this.offset == offset );
-      this.offset = offset;
-    }
+    this._env.moveAgent( this, pos );
     this.lastPos = this._pos;
     this._pos = pos;
   };

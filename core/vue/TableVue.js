@@ -11,6 +11,7 @@ function TableVue( HTMLContainer, environment ) {
   if ( TableVue.initialized !== true ) {
 
     TableVue.prototype.update = function ( agents ) {
+      console.log( agents )
       //control refresh ofdrawing
       if ( this._tick == this._refresh ) {
         this._repaint( agents );
@@ -28,6 +29,7 @@ function TableVue( HTMLContainer, environment ) {
               x: x,
               y: y
             } ) ) {
+            console.log( "repaint", x, y, this._env._plan[ x ][ y ].style() );
             style += " #x" + x + "y" + y + "{ " +
               this._env._plan[ x ][ y ].style() + ";}";
           }
@@ -70,4 +72,4 @@ function TableVue( HTMLContainer, environment ) {
   }
 
   this.init();
-}
+};

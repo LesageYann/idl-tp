@@ -32,6 +32,7 @@ class Environment {
   addAgent( agent ) {
     this._plan[ agent.x() ][ agent.y() ] = agent;
     this._sma.addAgent( agent );
+    console.log( this._plan[ agent.x() ][ agent.y() ] );
   }
 
   /* change position on plan
@@ -75,7 +76,7 @@ class Environment {
 
   aroundFree( pos ) {
     var res = [];
-    for ( i = -1; i < 2; i++ ) {
+    for ( var i = -1; i < 2; i++ ) {
       this._addToFree( {
         x: pos.x + i,
         y: pos.y
@@ -109,7 +110,6 @@ class Environment {
   };
 
   isFree( pos ) {
-    console.log( pos )
     return this._plan[ pos.x ][ pos.y ] == null;
   };
 

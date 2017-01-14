@@ -16,14 +16,14 @@ var config = {
     size: 10,
     unit: 'px'
   },
-  delay: 0, //if delay null, manual refresh
+  delay: 25, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,
   seed: 'any string', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Fish: 10
+    Fish: 1
   },
   fish: {
     breedTime: 10
