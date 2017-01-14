@@ -17,6 +17,10 @@ class SMA {
     }
   };
 
+  addAgent( agent ) {
+    this._agents.push( agent );
+  }
+
   launchTurn() {
     self = this;
     if ( !self._inTurn ) {

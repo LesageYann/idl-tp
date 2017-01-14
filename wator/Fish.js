@@ -6,7 +6,7 @@ class Fish extends Animal {
   }
 
   _createNew() {
-    new Fish( this.lastPos.x, this.lastPos.y, this.style );
+    return new Fish( this.lastPos.x, this.lastPos.y, this.style );
   }
 
   breedTime() {

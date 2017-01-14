@@ -16,7 +16,7 @@ var config = {
     size: 10,
     unit: 'px'
   },
-  delay: 50, //if delay null, manual refresh
+  delay: 0, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,

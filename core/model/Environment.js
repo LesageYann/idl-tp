@@ -29,6 +29,11 @@ class Environment {
     //sma.addObserver(this);
   };
 
+  addAgent( agent ) {
+    this._plan[ agent.x() ][ agent.y() ] = agent;
+    this._sma.addAgent( agent );
+  }
+
   /* change position on plan
    * return agent if the newPos is already occuped
    */
@@ -73,32 +78,39 @@ class Environment {
     for ( i = -1; i < 2; i++ ) {
       this._addToFree( {
         x: pos.x + i,
-        y: pos.y + i
+        y: pos.y
       }, res );
       this._addToFree( {
         x: pos.x + i,
-        y: pos.y + i + 1
+        y: pos.y + 1
+      }, res );
+      this._addToFree( {
+        x: pos.x + i,
+        y: pos.y - 1
       }, res );
     }
     return res;
   };
 
   _addToFree( pos, arr ) {
-    console.log( pos );
-    this._handleBound( pos );
-    if ( this.isFree( pos ) ) {
-      arr.push( pos );
+    try {
+      this._handleBound( pos );
+      if ( this.isFree( pos ) ) {
+        arr.push( pos );
+      }
+    } catch ( e ) {
+      //do nothing in this case
     }
   };
 
-case ( pos ) {
-  this._handleBound( pos );
-  return this._plan[ pos.x ][ pos.y ];
-};
+  getCase( pos ) {
+    this._handleBound( pos );
+    return this._plan[ pos.x ][ pos.y ];
+  };
 
-isFree( pos ) {
-  console.log( pos )
-  return this._plan[ pos.x ][ pos.y ] == null;
-};
+  isFree( pos ) {
+    console.log( pos )
+    return this._plan[ pos.x ][ pos.y ] == null;
+  };
 
 }

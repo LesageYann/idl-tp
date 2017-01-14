@@ -3,7 +3,7 @@
 class Animal extends Agent {
   constructor( x, y, env, style ) {
     super( x, y, env, style );
-    this.tick = 0;
+    this.age = 0;
   }
 
   decide() {
@@ -22,11 +22,9 @@ class Animal extends Agent {
   }
 
   breed() {
-    if ( this.breedTime() == this.tick ) {
-      this._createNew();
-      this.tick++;
-    } else {
-      this.tick++;
+    this.age++;
+    if ( this.breedTime() == this.age ) {
+      this._env.addAgent( this._createNew() );
     }
   }
 
