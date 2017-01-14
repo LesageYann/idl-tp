@@ -1,7 +1,14 @@
 /* This agent exchange position if position is already occuped
  */
 
-class Particule extends Agent {
+class Fish extends Agent {
+
+  constructor(x, y, env, style) {
+    var styleAdult = "background-image: url(../images/fish-blue.png);  background-size: " + config.box.size + "px " + config.box.size + "px;";
+    var styleBaby = "background-image: url(../images/fish-green.png);  background-size: " + config.box.size + "px " + config.box.size + "px;";
+
+    super(x, y, env, (styleAdult));
+  };
 
   decide() {
     var pos = {
