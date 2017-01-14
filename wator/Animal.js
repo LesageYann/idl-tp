@@ -2,7 +2,6 @@
  */
 class Animal extends Agent {
   constructor( x, y, env, babyStyle, adultStyle) {
-    console.log("new animal", babyStyle);
     super( x, y, env, babyStyle );
     this.age = 0;
     this._adultStyle = adultStyle;
