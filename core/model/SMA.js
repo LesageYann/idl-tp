@@ -17,6 +17,12 @@ class SMA {
     }
   };
 
+  addAgent( agent ) {
+    this._agents.push( agent );
+
+    console.log( "add", agent, this._agents )
+  }
+
   launchTurn() {
     self = this;
     if (!self._inTurn) {
@@ -95,8 +101,10 @@ class SMA {
 
   function sequential(sma) {
     //nothing todo, always the same order
-    for (i = 0; i < sma._agents.length; i++) {
-      sma._agents[i].decide();
+    var length = sma._agents.length
+    for ( var i = 0; i < length; i++ ) {
+      console.log( i )
+      sma._agents[ i ].decide();
     }
   }
 

@@ -32,6 +32,12 @@ class Environment {
     //sma.addObserver(this);
   };
 
+  addAgent( agent ) {
+    this._plan[ agent.x() ][ agent.y() ] = agent;
+    this._sma.addAgent( agent );
+    console.log( this._plan[ agent.x() ][ agent.y() ] );
+  }
+
   /* change position on plan
    * return agent if the newPos is already occuped
    */
@@ -71,35 +77,43 @@ class Environment {
     }
   };
 
-  aroundFree(pos) {
-    varres = [];
-    for (i = -1; i < 2; i++) {
-      this._addToFree(x + i, y + i, res);
-      this._addToFree(x + i, y + i + 1, res);
+  aroundFree( pos ) {
+    var res = [];
+    for ( var i = -1; i < 2; i++ ) {
+      this._addToFree( {
+        x: pos.x + i,
+        y: pos.y
+      }, res );
+      this._addToFree( {
+        x: pos.x + i,
+        y: pos.y + 1
+      }, res );
+      this._addToFree( {
+        x: pos.x + i,
+        y: pos.y - 1
+      }, res );
     }
     return res;
   };
 
-  _addToFree(x, y, arr) {
-    var pos = {
-      x: x,
-      y: y
-    };
-    if (this.isFree(pos)) {
-      arr.push({
-        x: x,
-        y: y
-      });
+  _addToFree( pos, arr ) {
+    try {
+      this._handleBound( pos );
+      if ( this.isFree( pos ) ) {
+        arr.push( pos );
+      }
+    } catch ( e ) {
+      //do nothing in this case
     }
   };
 
-  case(pos) {
-    this._handleBound(pos);
-    return this._plan[pos.x][pos.y];
+  getCase( pos ) {
+    this._handleBound( pos );
+    return this._plan[ pos.x ][ pos.y ];
   };
 
-  isFree(pos) {
-    return this._plan[pos.x][pos.y] == null;
+  isFree( pos ) {
+    return this._plan[ pos.x ][ pos.y ] == null;
   };
 
   getNumberOfAgents() {
