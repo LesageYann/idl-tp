@@ -28,8 +28,10 @@ class Shark extends Animal {
     if ( prey.length ) {
       res = prey;
       this.eat( prey );
-    } else {
+    } else if ( free.length ) {
       res = [ free[ 0 ] ];
+    } else {
+      res = []; //no move
     }
     return res;
   }
@@ -43,7 +45,6 @@ class Shark extends Animal {
   }
 
   _createNew() {
-    console.log( "lastPos", this.lastPos, this._name );
     return new Shark( this.lastPos.x, this.lastPos.y, this._env, this.style() );
   }
 
@@ -64,4 +65,4 @@ Shark.style = {
   adult: "url('../images/shark-red.png')",
   baby: "url('../images/shark-pink.png')"
 }
-Shark.breedTime = config.shark.breedTime || 10;
+Shark.breedTime = config.shark.breedTime || 10;;

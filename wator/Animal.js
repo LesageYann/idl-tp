@@ -8,11 +8,11 @@ class Animal extends Agent {
 
   decide() {
     var possible = this._perception();
-    console.log( "p", this._name, possible )
     if ( possible.length > 0 ) {
       this._move( this.chosePossibleMove( possible ) );
     }
-    this.breed();
+    if ( this.lastPos != null && this._env.isFree( this.lastPos ) )
+      this.breed();
     //   console.log( "agent end", this._pos );
   };
 
@@ -44,6 +44,5 @@ class Animal extends Agent {
     this._env.moveAgent( this, pos );
     this.lastPos = this._pos;
     this._pos = pos;
-    console.log( "lastPos", this.lastPos, this._name );
   };
 }
