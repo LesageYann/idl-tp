@@ -2,11 +2,16 @@
  */
 class Shark extends Animal {
   constructor( x, y, env ) {
-    super( x, y, env, "background:url('../images/shark-red.png');background-size: " + config.box.size + "px " + config.box.size + "px" );
-  }
+    super( x, y, env );
+    this.setName( "Shark" );
+    this.lastEat = 0;
+    this.setAdultStyle();
+  };
 
   _perception() {
-    return this._env.aroundFree( this._pos );
+    var res;
+    res = this._env.aroundFree( this._pos );
+    return res;
   }
 
   _createNew() {
@@ -16,6 +21,18 @@ class Shark extends Animal {
   breedTime() {
     return Fish.breedTime;
   }
+
+  setBabyStyle() {
+    this._style = Shark.style.baby;
+  }
+
+  setAdultStyle() {
+    this._style = Shark.style.adult;
+  }
 }
 
-Fish.breedTime = config.fish.breedTime || 2;
+Shark.style = {
+  adult: "url('../images/fish-blue.png')",
+  baby: "url('../images/fish-green.png')"
+}
+Shark.breedTime = config.shark.breedTime || 10;

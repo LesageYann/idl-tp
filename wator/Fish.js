@@ -21,16 +21,16 @@ class Fish extends Animal {
   }
 
   setBabyStyle() {
-    this._style = {
-      "background-image": "url('../images/fish-green.png')",
-      "background-repeat": "no-repeat",
-      "background-size": config.box.size + config.box.unit,
-    }
+    this._style = Fish.style.baby;
+  }
 
-    setAdultStyle() {
-      this._style[ "background-image" ] = [ "url('../images/fish-blue.png')" ];
-    }
+  setAdultStyle() {
+    this._style = Fish.style.adult;
   }
 }
 
+Fish.style = {
+  adult: "url('../images/fish-blue.png')",
+  baby: "url('../images/fish-green.png')"
+}
 Fish.breedTime = config.fish.breedTime || 2;
