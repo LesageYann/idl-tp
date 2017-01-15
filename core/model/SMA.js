@@ -1,9 +1,10 @@
 class SMA {
-  constructor( agents ) {
+  constructor( agents, counter ) {
     this._agents = agents;
     this._observers = [];
     this._hasChanged = false;
     this._tick = 0;
+    this._counter = counter;
   }
 
   run() {
@@ -19,10 +20,12 @@ class SMA {
 
   addAgent( agent ) {
     this._agents.push( agent );
+    this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] + 1;
   }
 
   killAgent( agent ) {
     this._agents.slice( this._agents.indexOf( agent ), 1 );
+    this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] - 1;
   }
 
   launchTurn() {
@@ -66,14 +69,7 @@ class SMA {
   };
 
   getNumberOfAgents() {
-    var agents = {};
-    for ( var i = 0; i < this._agents.length; i++ ) {
-      if ( !agents[ this._agents[ i ]._name ] ) {
-        agents[ this._agents[ i ]._name ] = 0;
-      }
-      agents[ this._agents[ i ]._name ]++;
-    }
-    return agents;
+    return this._counter;
   }
 
   getTick() {
@@ -104,7 +100,6 @@ class SMA {
     //nothing todo, always the same order
     var length = sma._agents.length
     for ( var i = 0; i < length; i++ ) {
-      //    console.log( i )
       sma._agents[ i ].decide();
     }
   }
