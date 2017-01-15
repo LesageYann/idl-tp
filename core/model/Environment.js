@@ -1,15 +1,14 @@
 class Environment {
-  constructor(x, y, toric) {
+  constructor( x, y, toric ) {
     this._x = x || 50;
     this._y = y || 50;
     this._toric = toric;
     this._plan = [];
     this._sma = {
-      setChanged: function () {
-      }
+      setChanged: function () {}
     }; //mock before set sma
-    for (var i = 0; i < this._x; i++) {
-      this._plan[i] = [];
+    for ( var i = 0; i < this._x; i++ ) {
+      this._plan[ i ] = [];
     }
     this.smaSet = false;
   }
@@ -26,7 +25,7 @@ class Environment {
     return this._y;
   };
 
-  setSMA(sma) {
+  setSMA( sma ) {
     this._sma = sma;
     this.smaSet = true;
     //sma.addObserver(this);
@@ -35,17 +34,20 @@ class Environment {
   addAgent( agent ) {
     this._plan[ agent.x() ][ agent.y() ] = agent;
     this._sma.addAgent( agent );
-  //  console.log( this._plan[ agent.x() ][ agent.y() ] );
+  }
+
+  killAgent( agent ) {
+    this._sma.killAgent( agent );
   }
 
   /* change position on plan
    * return agent if the newPos is already occuped
    */
-  moveAgent(agent, newPos) {
-    this._handleBound(newPos);
-    this._plan[agent.x()][agent.y()] = null;
-    var res = this._plan[newPos.x][newPos.y];
-    this._plan[newPos.x][newPos.y] = agent;
+  moveAgent( agent, newPos ) {
+    this._handleBound( newPos );
+    this._plan[ agent.x() ][ agent.y() ] = null;
+    var res = this._plan[ newPos.x ][ newPos.y ];
+    this._plan[ newPos.x ][ newPos.y ] = agent;
     this._sma.setChanged();
     return res;
   };
@@ -53,26 +55,26 @@ class Environment {
   /* change position on plan
    * erase previous agent if the newPos is already occuped
    */
-  setAgentAt(agent, newPos) {
-    this._handleBound(newPos);
-    this._plan[newPos.x][newPos.y] = agent;
+  setAgentAt( agent, newPos ) {
+    this._handleBound( newPos );
+    this._plan[ newPos.x ][ newPos.y ] = agent;
     this._sma.setChanged();
   };
 
-  _handleBound(newPos) {
-    if (this._toric) {
-      if (newPos.x >= this._x || newPos.x < 0) {
+  _handleBound( newPos ) {
+    if ( this._toric ) {
+      if ( newPos.x >= this._x || newPos.x < 0 ) {
         newPos.x = ( newPos.x + this._x ) % this._x;
       }
-      if (newPos.y >= this._y || newPos.y < 0) {
+      if ( newPos.y >= this._y || newPos.y < 0 ) {
         newPos.y = ( newPos.y + this._y ) % this._y;
       }
     } else {
-      if (newPos.x >= this._x || newPos.x < 0) {
-        throw new ExceptionXBound(newPos.x);
+      if ( newPos.x >= this._x || newPos.x < 0 ) {
+        throw new ExceptionXBound( newPos.x );
       }
-      if (newPos.y >= this._y || newPos.y < 0) {
-        throw new ExceptionYBound(newPos.y);
+      if ( newPos.y >= this._y || newPos.y < 0 ) {
+        throw new ExceptionYBound( newPos.y );
       }
     }
   };
@@ -117,14 +119,14 @@ class Environment {
   };
 
   getNumberOfAgents() {
-    if (this.smaSet) {
+    if ( this.smaSet ) {
       return this._sma.getNumberOfAgents();
     }
     return {};
   }
 
-  getTick(){
-    if (this.smaSet) {
+  getTick() {
+    if ( this.smaSet ) {
       return this._sma.getTick();
     }
     return 0;

@@ -21,6 +21,10 @@ class SMA {
     this._agents.push( agent );
   }
 
+  killAgent( agent ) {
+    this._agents.slice( this._agents.indexOf( agent ), 1 );
+  }
+
   launchTurn() {
     self = this;
     if ( !self._inTurn ) {

@@ -9,12 +9,41 @@ class Shark extends Animal {
   };
 
   _perception() {
-    var res;
-    res = this._env.aroundFree( this._pos );
+    var pos, agent, res, prey = [],
+      free = [];
+    for ( var i = -1; i < 2; i++ ) {
+      for ( var j = -1; j < 2; j++ ) {
+        pos = {
+          x: this.x() + i,
+          y: this.y() + j
+        };
+        agent = this._env.getCase( pos );
+        if ( agent == null ) {
+          free.push( pos );
+        } else if ( agent instanceof Fish ) {
+          prey.push( pos );
+        }
+      }
+    }
+    if ( prey.length ) {
+      res = prey;
+      this.eat( prey );
+    } else {
+      res = [ free[ 0 ] ];
+    }
     return res;
   }
 
+  eat( prey ) {
+    this._env.killAgent( prey );
+  }
+
+  chosePossibleMove( possible ) {
+    return possible[ 0 ];
+  }
+
   _createNew() {
+    console.log( "lastPos", this.lastPos, this._name );
     return new Shark( this.lastPos.x, this.lastPos.y, this._env, this.style() );
   }
 

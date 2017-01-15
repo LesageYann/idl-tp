@@ -8,12 +8,17 @@ class Animal extends Agent {
 
   decide() {
     var possible = this._perception();
+    console.log( "p", this._name, possible )
     if ( possible.length > 0 ) {
-      this._move( possible[ Math.floor( Math.random() * possible.length ) ] );
+      this._move( this.chosePossibleMove( possible ) );
     }
     this.breed();
     //   console.log( "agent end", this._pos );
   };
+
+  chosePossibleMove( possible ) {
+    return possible[ Math.floor( Math.random() * possible.length ) ];
+  }
 
   _perception() {
     throw new SubClassesResponsability( "_perception" );
@@ -39,5 +44,6 @@ class Animal extends Agent {
     this._env.moveAgent( this, pos );
     this.lastPos = this._pos;
     this._pos = pos;
+    console.log( "lastPos", this.lastPos, this._name );
   };
 }
