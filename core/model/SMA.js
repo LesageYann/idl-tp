@@ -19,7 +19,6 @@ class SMA {
 
   addAgent( agent ) {
     this._agents.push( agent );
-
     console.log( "add", agent, this._agents )
   }
 
@@ -103,7 +102,7 @@ class SMA {
     //nothing todo, always the same order
     var length = sma._agents.length
     for ( var i = 0; i < length; i++ ) {
-      console.log( i )
+  //    console.log( i )
       sma._agents[ i ].decide();
     }
   }

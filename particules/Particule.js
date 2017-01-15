@@ -3,6 +3,11 @@
 
 class Particule extends Agent {
 
+  constructor(x, y, env, style) {
+    super(x, y, env);
+    this.setName('Particule');
+  };
+
   decide() {
     var pos = {
       x: this._pos.x + this.offset.x,

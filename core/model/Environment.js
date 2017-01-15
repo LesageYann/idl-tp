@@ -35,7 +35,7 @@ class Environment {
   addAgent( agent ) {
     this._plan[ agent.x() ][ agent.y() ] = agent;
     this._sma.addAgent( agent );
-    console.log( this._plan[ agent.x() ][ agent.y() ] );
+  //  console.log( this._plan[ agent.x() ][ agent.y() ] );
   }
 
   /* change position on plan
