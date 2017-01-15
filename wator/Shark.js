@@ -5,7 +5,7 @@ class Shark extends Animal {
     super( x, y, env );
     this.setName( "Shark" );
     this.lastEat = 0;
-    this.setAdultStyle();
+    this.setBabyStyle();
   };
 
   _perception() {
@@ -32,7 +32,7 @@ class Shark extends Animal {
 }
 
 Shark.style = {
-  adult: "url('../images/fish-blue.png')",
-  baby: "url('../images/fish-green.png')"
+  adult: "url('../images/shark-red.png')",
+  baby: "url('../images/shark-pink.png')"
 }
 Shark.breedTime = config.shark.breedTime || 10;

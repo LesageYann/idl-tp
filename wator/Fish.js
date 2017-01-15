@@ -5,7 +5,7 @@ class Fish extends Animal {
   constructor( x, y, env ) {
     super( x, y, env );
     this.setName( "Fish" );
-    this.setAdultStyle();
+    this.setBabyStyle();
   };
 
   _perception() {
