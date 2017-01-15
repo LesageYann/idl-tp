@@ -1,10 +1,9 @@
 /* This agent can genere a new agent
  */
 class Animal extends Agent {
-  constructor( x, y, env, babyStyle, adultStyle) {
+  constructor( x, y, env, babyStyle ) {
     super( x, y, env, babyStyle );
     this.age = 0;
-    this._adultStyle = adultStyle;
   }
 
   decide() {
@@ -13,7 +12,7 @@ class Animal extends Agent {
       this._move( possible[ Math.floor( Math.random() * possible.length ) ] );
     }
     this.breed();
- //   console.log( "agent end", this._pos );
+    //   console.log( "agent end", this._pos );
   };
 
   _perception() {
@@ -25,11 +24,12 @@ class Animal extends Agent {
 
   breed() {
     this.age++;
-    if(this.age > this.breedTime()) {
-      this._style = this._adultStyle;
+    // == to make only once time the set of style
+    if ( this.age == this.breedTime() ) {
+      this._style = this.setAdultStyle();
     }
 
-    if(!(this.age % this.breedTime() )) {
+    if ( !( this.age % this.breedTime() ) ) {
       this._env.addAgent( this._createNew() );
     }
   }

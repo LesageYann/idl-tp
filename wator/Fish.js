@@ -2,24 +2,35 @@
  */
 class Fish extends Animal {
 
-  constructor(x, y, env, style) {
-    super(x, y, env, Fish.babyStyle, Fish.adultStyle);
-    this.setName("Fish");
+  constructor( x, y, env ) {
+    super( x, y, env );
+    this.setName( "Fish" );
+    this.setAdultStyle();
   };
 
   _perception() {
-    return this._env.aroundFree(this._pos);
+    return this._env.aroundFree( this._pos );
   }
 
   _createNew() {
-    return new Fish(this.lastPos.x, this.lastPos.y, this._env, Fish.babyStyle);
+    return new Fish( this.lastPos.x, this.lastPos.y, this._env, Fish.babyStyle );
   }
 
   breedTime() {
     return Fish.breedTime;
   }
+
+  setBabyStyle() {
+    this._style = {
+      "background-image": "url('../images/fish-green.png')",
+      "background-repeat": "no-repeat",
+      "background-size": config.box.size + config.box.unit,
+    }
+
+    setAdultStyle() {
+      this._style[ "background-image" ] = [ "url('../images/fish-blue.png')" ];
+    }
+  }
 }
 
-Fish.babyStyle = ("background-image: url('../images/fish-green.png'); background-size:10px 10px; background-repeat: no-repeat;");
-Fish.adultStyle = ("background-image: url('../images/fish-blue.png'); background-size:10px 10px; background-repeat: no-repeat;");
 Fish.breedTime = config.fish.breedTime || 2;
