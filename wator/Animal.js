@@ -4,17 +4,24 @@ class Animal extends Agent {
   constructor( x, y, env ) {
     super( x, y, env );
     this.age = 0;
+    this.isAlive = true;
+  }
+  
+  die(){
+    this.isAlive = false;
   }
 
   decide() {
-    var possible = this._perception();
-    if ( possible.length > 0 ) {
-      this._move( this.chosePossibleMove( possible ) );
-    }
-    if ( this.lastPos != null && this._env.isFree( this.lastPos ) ) {
-      this.breed();
-    } else {
-      console.log( "dont create", this.constructor.name )
+    if(this.isAlive) {
+      var possible = this._perception();
+      if (possible.length > 0) {
+        this._move(this.chosePossibleMove(possible));
+      }
+      if (this.lastPos != null && this._env.isFree(this.lastPos)) {
+        this.breed();
+      } else {
+        console.log("dont create", this.constructor.name)
+      }
     }
     //   console.log( "agent end", this._pos );
   };

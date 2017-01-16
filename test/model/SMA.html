@@ -15,11 +15,15 @@ and open the template in the editor.
     <div id="mocha"><p><a href="./">Index</a></p></div>
     <div id="messages"></div>
     <div id="fixtures"></div>
+    <script>var config = {
+      sheduling: "sequential"
+    }</script>
     <script src="../mocha.min.js"></script>
     <script src="../chai.js"></script>
     <script src="../../core/model/Environment.js"></script>
     <script src="../../core/model/SMA.js"></script>
     <script src="../../core/model/Agent.js"></script>
+    <script src="../AgentMock.js"></script>
     <script>mocha.setup('bdd')</script>
     <script src="SMA.js"></script>
     <script>mocha.run();</script>

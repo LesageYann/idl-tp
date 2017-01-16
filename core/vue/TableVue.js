@@ -21,56 +21,17 @@ class TableVue {
     this._tick++;
   };
 
-  _repaintInfos() {
-    var oldDiv = this._div;
-    this._div = document.createElement( 'div' );
-    this._div.className = "col-xs-6";
-    var span = document.createElement( 'span' );
-    var numberOfAgents = this._env.getNumberOfAgents();
-    var agentsDetails = 'Tick: ' + this._env.getTick() + "\n<br/><br/>";
-    var keys = Object.keys( numberOfAgents );
-    for ( var i = 0; i < keys.length; i++ ) {
-      var agentName = keys[ i ];
-      agentsDetails += agentName + "\n Population: " + numberOfAgents[ agentName ] + "\n<br/>" +
-        "#Initial : " + config.particules[ agentName ] + "\n<br/>";
-      if ( config.params ) {
-        for ( var params in config.params[ agentName ] ) {
-          agentsDetails += params + ": " + config.params[ agentName ][ params ] + "\n<br/>";
-        }
-        agentsDetails += "<br/>";
-      }
-    }
-
-    span.innerHTML = agentsDetails;
-    this._div.appendChild( span );
-
-    if ( config.canvasDisplay ) {
-      if ( oldDiv == null ) {
-        this._container.appendChild( this._div );
-      } else {
-        this._container.replaceChild( this._div, oldDiv );
-      }
-    }
-  };
-
   _repaint( agents ) {
     //drawing
     var style = this._basicStyle;
-    for ( var x = 0; x < this._env.xSize(); x++ ) {
-      for ( var y = 0; y < this._env.ySize(); y++ ) {
-        var pos = {
-          x: x,
-          y: y
-        };
-        if ( !this._env.isFree( pos ) ) {
-          style += " #x" + x + "y" + y + "{ background:" +
-            this._env._plan[ x ][ y ].style() + ";}";
-        }
-      }
+    
+    for ( var index in agents) {
+      var agent = agents[index];
+          style += " #x" + agent._pos.x + "y" + agent._pos.y + "{ background:" +
+            agent._style+ ";}";
     }
+    
     this._style.innerHTML = style;
-
-    this._repaintInfos();
   };
 
   init() {
@@ -84,7 +45,6 @@ class TableVue {
     this._style.innerHTML = this._basicStyle;
     var oldTable = this._canvas;
     this._canvas = document.createElement( 'table' );
-    this._canvas.className = "col-xs-6";
 
     for ( var y = 0; y < this._env.ySize(); y++ ) {
       var tr = document.createElement( 'tr' );

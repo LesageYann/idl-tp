@@ -4,7 +4,11 @@ class SMA {
     this._observers = [];
     this._hasChanged = false;
     this._tick = 0;
-    this._counter = counter;
+    this._counter = {};
+    var keys = Object.keys( counter );
+    for ( var i = 0; i < keys.length; i++ ) {
+      this._counter[ keys[ i ] ] = counter[ keys[ i ] ];
+    }
     this._toKill = [];
   }
 
@@ -36,7 +40,6 @@ class SMA {
    */
   _killAgents() {
     var agent;
-    console.log( "kill agents ", this._toKill.length );
     for ( var i = 0; i < this._toKill.length; i++ ) {
       agent = this._toKill[ i ];
       this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] - 1;
@@ -105,7 +108,7 @@ class SMA {
       sma._agents[ j ] = x;
     }
     sma._executeTurn.sequential( sma );
-  };
+  }
 
   function random( sma ) {
     var i, l = sma._agents.length;
@@ -113,12 +116,13 @@ class SMA {
       sma._agents[ Math.floor( Math.random() * l ) ].decide();
       sma.setChanged();
     }
-  };
+  }
 
   function sequential( sma ) {
     //nothing todo, always the same order
     for ( var i = 0; i < sma._agents.length; i++ ) {
       sma._agents[ i ].decide();
+      console.log(sma._agents[ i ].constructor.name);
       sma.setChanged();
     }
   }

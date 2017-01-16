@@ -39,11 +39,19 @@ window.onload = function () {
     }
   }
 
+  function createPanel() {
+    if ( config.panel ) {
+      panel = new PanelVue( document.getElementById( 'panel' ), env );
+      sma.addObserver( panel );
+    }
+  }
+
   env = new Environment( config.grid.size.x, config.grid.size.y, config.grid.toric );
   vue = createVue( config.render || "TableVue", document.getElementById( 'view' ), env );
 
   createAgents( config.particules );
   createTrace();
+  createPanel();
 
   sma.run();
 
