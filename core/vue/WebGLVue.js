@@ -5,6 +5,7 @@ function WebGLVue( HTMLContainer, environment ) {
   this._x = config.grid.size.x;
   this._y = config.grid.size.y;
   this._boxSize = config.box.size;
+  this._boxSubDiv = Math.max( Math.min( this._boxSize, 12 ), 3 );
   this._refresh = config.refresh || 1;
   this._tick = this._refresh; // for drawing at the first tick
 
