@@ -122,7 +122,6 @@ class SMA {
     //nothing todo, always the same order
     for ( var i = 0; i < sma._agents.length; i++ ) {
       sma._agents[ i ].decide();
-      console.log(sma._agents[ i ].constructor.name);
       sma.setChanged();
     }
   }
