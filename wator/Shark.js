@@ -12,13 +12,11 @@ class Shark extends Animal {
       free = [];
     this._buildPreyAndFree( prey, free );
     if ( prey.length ) {
-      console.log( "eat" );
       res = prey;
       this.eat( prey[ 0 ] );
     } else {
       this.lastEat = this.lastEat + 1;
       if ( this.lastEat == this.constructor.starveTime ) {
-        console.log( "starve" );
         this._env.killAgent( this );
         res = []; //no move and kill
       } else if ( free.length ) {
