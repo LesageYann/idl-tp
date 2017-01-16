@@ -20,6 +20,7 @@ var config = {
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 40, //infinite if 0
   trace: true,
+  panel: true,
   seed: 'any string', //radom if null
   refresh: 2, //if(tick%refresh ==0)
   particules: {
@@ -27,7 +28,7 @@ var config = {
     Shark: 15
   },
   fish: {
-    breedTime: 3
+    breedTime: 50
   },
   shark: {
     breedTime: 10,

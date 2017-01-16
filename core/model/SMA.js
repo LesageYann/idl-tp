@@ -4,7 +4,11 @@ class SMA {
     this._observers = [];
     this._hasChanged = false;
     this._tick = 0;
-    this._counter = counter;
+    this._counter = {};
+    var keys = Object.keys( counter );
+    for ( var i = 0; i < keys.length; i++ ) {
+      this._counter[ keys[ i ] ] = counter[ keys[ i ] ];
+    }
     this._toKill = [];
   }
 
@@ -36,7 +40,6 @@ class SMA {
    */
   _killAgents() {
     var agent;
-    console.log( "kill agents ", this._toKill.length );
     for ( var i = 0; i < this._toKill.length; i++ ) {
       agent = this._toKill[ i ];
       this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] - 1;
