@@ -48,84 +48,99 @@ describe( "Environment", function () {
       } );
     } );
 
-    describe( "#moveAgent", function () {
-      it( "place the Agent at the good place", function () {
-        var env = new Environment( 50, 50, true );
-        var mockAgent = {
-          x: function () {
-            return 10;
-          },
-          y: function () {
-            return 10;
-          }
+    describe( "#getCase", function () {
+      it( "getCase change pos out of bound if toric world", function () {
+        var env = new Environment( 10, 10, true );
+        var pos = {
+          x: 10,
+          y: 11
         };
-        env.moveAgent( mockAgent, {
-          x: 20,
-          y: 20
+        env.getCase( pos );
+        expect( pos ).to.be.deep.equal( {
+          x: 0,
+          y: 1
         } );
-        expect( env.getCase( {
-          x: 20,
-          y: 20
-        } ) ).to.equal( mockAgent );
       } );
 
-      it( "free the previous place", function () {
-        var env = new Environment( 50, 50, true );
-        mockAgent = {
-          x: function () {
-            return 10
-          },
-          y: function () {
-            return 10
-          }
-        };
-        env.moveAgent( mockAgent, {
-          x: 10,
-          y: 10
+      describe( "#moveAgent", function () {
+        it( "place the Agent at the good place", function () {
+          var env = new Environment( 50, 50, true );
+          var mockAgent = {
+            x: function () {
+              return 10;
+            },
+            y: function () {
+              return 10;
+            }
+          };
+          env.moveAgent( mockAgent, {
+            x: 20,
+            y: 20
+          } );
+          expect( env.getCase( {
+            x: 20,
+            y: 20
+          } ) ).to.equal( mockAgent );
         } );
-        expect( env.isFree( {
-          x: 10,
-          y: 10
-        } ) ).to.equal( false );
-        env.moveAgent( mockAgent, {
-          x: 20,
-          y: 20
-        } );
-        expect( env.isFree( {
-          x: 10,
-          y: 10
-        } ) ).to.equal( true );
-      } );
 
-      it( "return the agent A on X,Y if X,Y is not free when we move the agent B on X,Y", function () {
-        var env = new Environment( 50, 50, true );
-        mockAgentA = {
-          x: function () {
-            return 10
-          },
-          y: function () {
-            return 10
-          }
-        };
-        mockAgentB = {
-          x: function () {
-            return 10
-          },
-          y: function () {
-            return 10
-          }
-        };
-        env.moveAgent( mockAgentA, {
-          x: 20,
-          y: 20
+        it( "free the previous place", function () {
+          var env = new Environment( 50, 50, true );
+          mockAgent = {
+            x: function () {
+              return 10
+            },
+            y: function () {
+              return 10
+            }
+          };
+          env.moveAgent( mockAgent, {
+            x: 10,
+            y: 10
+          } );
+          expect( env.isFree( {
+            x: 10,
+            y: 10
+          } ) ).to.equal( false );
+          env.moveAgent( mockAgent, {
+            x: 20,
+            y: 20
+          } );
+          expect( env.isFree( {
+            x: 10,
+            y: 10
+          } ) ).to.equal( true );
         } );
-        res = env.moveAgent( mockAgentB, {
-          x: 20,
-          y: 20
-        } );
-        expect( res ).to.equal( mockAgentA );
-      } );
 
+        it( "return the agent A on X,Y if X,Y is not free when we move the agent B on X,Y", function () {
+          var env = new Environment( 50, 50, true );
+          mockAgentA = {
+            x: function () {
+              return 10
+            },
+            y: function () {
+              return 10
+            }
+          };
+          mockAgentB = {
+            x: function () {
+              return 10
+            },
+            y: function () {
+              return 10
+            }
+          };
+          env.moveAgent( mockAgentA, {
+            x: 20,
+            y: 20
+          } );
+          res = env.moveAgent( mockAgentB, {
+            x: 20,
+            y: 20
+          } );
+          expect( res ).to.equal( mockAgentA );
+        } );
+
+      } );
     } );
   } );
 } );

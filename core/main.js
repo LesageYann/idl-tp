@@ -26,7 +26,7 @@ window.onload = function () {
         } );
       }
     }
-    sma = new SMA( agents, config.refresh );
+    sma = new SMA( agents, config.particules );
     env.setSMA( sma );
     sma.addObserver( vue );
     vue.update( agents );

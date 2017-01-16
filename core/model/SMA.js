@@ -1,36 +1,57 @@
 class SMA {
-  constructor(agents) {
+  constructor( agents, counter ) {
     this._agents = agents;
     this._observers = [];
     this._hasChanged = false;
     this._tick = 0;
+    this._counter = counter;
+    this._toKill = [];
   }
 
   run() {
     self = this;
     self._tick = 1;
     self._inTurn = false;
-    if (config.delay != 0) {
-      self._intervalID = window.setInterval(function () {
-        self.launchTurn(self);
-      }, config.delay);
+    if ( config.delay != 0 ) {
+      self._intervalID = window.setInterval( function () {
+        self.launchTurn( self );
+      }, config.delay );
     }
   };
 
   addAgent( agent ) {
     this._agents.push( agent );
+    this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] + 1;
+  }
 
-    console.log( "add", agent, this._agents )
+  /*
+   * record agents to kill at the end of turn
+   */
+  killAgent( agent ) {
+    this._toKill.push( agent );
+  }
+
+  /*
+   * kill agents at the end of turn
+   */
+  _killAgents() {
+    var agent;
+    console.log( "kill agents ", this._toKill.length );
+    for ( var i = 0; i < this._toKill.length; i++ ) {
+      agent = this._toKill[ i ];
+      this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] - 1;
+      this._agents.splice( this._agents.indexOf( agent ), 1 );
+    }
+    this._toKill = [];
   }
 
   launchTurn() {
     self = this;
-    if (!self._inTurn) {
+    if ( !self._inTurn ) {
       self._inTurn = true;
       self.turn();
-      if (self._tick == config.nbTicks) {
-        console.log("clear interval")
-        clearInterval(self._intervalID);
+      if ( self._tick == config.nbTicks ) {
+        clearInterval( self._intervalID );
       }
       self._tick++;
       self._inTurn = false;
@@ -38,9 +59,10 @@ class SMA {
   };
 
   turn() {
-    this._executeTurn[config.sheduling](this);
+    this._executeTurn[ config.sheduling ]( this );
+    this._killAgents();
 
-    if (this.hasChanged()) {
+    if ( this.hasChanged() ) {
       this.notifyObserver();
     }
   };
@@ -53,58 +75,51 @@ class SMA {
     this._hasChanged = true;
   };
 
-  addObserver(observer) {
-    this._observers.push(observer);
+  addObserver( observer ) {
+    this._observers.push( observer );
   };
 
   notifyObserver() {
-    for (var i = 0; i < this._observers.length; i++) {
-      this._observers[i].update(this._agents);
+    for ( var i = 0; i < this._observers.length; i++ ) {
+      this._observers[ i ].update( this._agents );
     }
     this._hasChanged = false;
   };
 
   getNumberOfAgents() {
-    var agents = {};
-    for (var i = 0; i < this._agents.length; i++) {
-      if(! agents[this._agents[i]._name]){
-        agents[this._agents[i]._name] = 0;
-      }
-      agents[this._agents[i]._name] ++;
-    }
-    return agents;
+    return this._counter;
   }
 
-  getTick(){
+  getTick() {
     return this._tick;
   }
 }
 
 ( function () {
-  function fair(sma) {
+  function fair( sma ) {
     var j, x, i;
-    for (i = sma._agents.length; i; i--) {
-      j = Math.floor(Math.random() * i);
-      x = sma._agents[i - 1];
-      sma._agents[i - 1] = sma._agents[j];
-      sma._agents[j] = x;
+    for ( i = sma._agents.length; i; i-- ) {
+      j = Math.floor( Math.random() * i );
+      x = sma._agents[ i - 1 ];
+      sma._agents[ i - 1 ] = sma._agents[ j ];
+      sma._agents[ j ] = x;
     }
-    sma._executeTurn.sequential(sma);
+    sma._executeTurn.sequential( sma );
   };
 
-  function random(sma) {
+  function random( sma ) {
     var i, l = sma._agents.length;
-    for (i = l; i; i--) {
-      sma._agents[Math.floor(Math.random() * l)].decide();
+    for ( i = l; i; i-- ) {
+      sma._agents[ Math.floor( Math.random() * l ) ].decide();
+      sma.setChanged();
     }
   };
 
-  function sequential(sma) {
+  function sequential( sma ) {
     //nothing todo, always the same order
-    var length = sma._agents.length
-    for ( var i = 0; i < length; i++ ) {
-      console.log( i )
+    for ( var i = 0; i < sma._agents.length; i++ ) {
       sma._agents[ i ].decide();
+      sma.setChanged();
     }
   }
 
