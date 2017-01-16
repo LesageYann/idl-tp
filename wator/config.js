@@ -18,20 +18,20 @@ var config = {
   },
   delay: 200, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
-  nbTicks: 40, //infinite if 0
+  nbTicks: 0, //infinite if 0
   trace: true,
   seed: 'any string', //radom if null
   refresh: 2, //if(tick%refresh ==0)
   particules: {
-    Fish: 15,
-    Shark: 15
+    Fish: 40,
+    Shark: 10
   },
   fish: {
-    breedTime: 3
+    breedTime: 10
   },
   shark: {
     breedTime: 10,
-    starveTime: 3,
+    starveTime: 4
   },
   render: "TableVue" // WebGLVue or TableVue
 };

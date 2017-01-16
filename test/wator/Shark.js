@@ -42,7 +42,9 @@ describe( "Environment", function () {
       fish = new Fish( 2, 1, e );
       e.addAgent( shark );
       e.addAgent( fish );
-      shark.decide();
+      sma.turn();
+  
+//      shark.decide();
       expect( shark.lastEat ).to.equal( 0 );
     } );
 
@@ -57,7 +59,9 @@ describe( "Environment", function () {
       fish = new Fish( 2, 1, e );
       e.addAgent( shark );
       e.addAgent( fish );
-      shark.decide();
+      sma.turn();
+//      shark.decide();
+      console.log(sma);
       expect( sma.getNumberOfAgents().Fish ).to.equal( 0 );
     } );
   } );
@@ -70,27 +74,27 @@ describe( "Environment", function () {
 
     it( "don't eat up starve state", function () {
       e = new Environment( 3, 3, true );
-      sma = new SMA( [], {
-        Shark: 0,
+      shark = new Shark( 1, 1, e );
+      sma = new SMA( [shark], {
+        Shark: 1,
         Fish: 0
       } );
       e.setSMA( sma );
-      shark = new Shark( 1, 1, e );
-      shark.decide();
+      sma.turn();
       expect( shark.lastEat ).to.equal( 1 );
     } );
 
     it( "at starveTime, shark die", function () {
       e = new Environment( 3, 3, true );
-      sma = new SMA( [], {
-        Shark: 0,
+      shark = new Shark( 1, 1, e );
+      sma = new SMA( [shark], {
+        Shark: 1,
         Fish: 0
       } );
       e.setSMA( sma );
-      shark = new Shark( 1, 1, e );
-      e.addAgent( shark );
-      shark.starveTime = 4
-      shark.decide();
+      shark.lastEat = 4;
+      sma.turn();
+
       expect( sma.getNumberOfAgents().Shark ).to.equal( 0 );
     } );
   } );
