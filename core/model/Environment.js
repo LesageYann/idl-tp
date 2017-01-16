@@ -37,7 +37,9 @@ class Environment {
   }
 
   killAgent( agent ) {
+    this._plan[ agent.x() ][ agent.y() ] = null;
     this._sma.killAgent( agent );
+    agent.die();
   }
 
   /* change position on plan
@@ -60,7 +62,7 @@ class Environment {
     this._plan[ newPos.x ][ newPos.y ] = agent;
     this._sma.setChanged();
   };
-
+    
   _handleBound( newPos ) {
     if ( this._toric ) {
       if ( newPos.x >= this._x || newPos.x < 0 ) {

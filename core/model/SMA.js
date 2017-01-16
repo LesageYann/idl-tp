@@ -108,7 +108,7 @@ class SMA {
       sma._agents[ j ] = x;
     }
     sma._executeTurn.sequential( sma );
-  };
+  }
 
   function random( sma ) {
     var i, l = sma._agents.length;
@@ -116,12 +116,13 @@ class SMA {
       sma._agents[ Math.floor( Math.random() * l ) ].decide();
       sma.setChanged();
     }
-  };
+  }
 
   function sequential( sma ) {
     //nothing todo, always the same order
     for ( var i = 0; i < sma._agents.length; i++ ) {
       sma._agents[ i ].decide();
+      console.log(sma._agents[ i ].constructor.name);
       sma.setChanged();
     }
   }

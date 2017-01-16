@@ -24,18 +24,13 @@ class TableVue {
   _repaint( agents ) {
     //drawing
     var style = this._basicStyle;
-    for ( var x = 0; x < this._env.xSize(); x++ ) {
-      for ( var y = 0; y < this._env.ySize(); y++ ) {
-        var pos = {
-          x: x,
-          y: y
-        };
-        if ( !this._env.isFree( pos ) ) {
-          style += " #x" + x + "y" + y + "{ background:" +
-            this._env._plan[ x ][ y ].style() + ";}";
-        }
-      }
+    
+    for ( var index in agents) {
+      var agent = agents[index];
+          style += " #x" + agent._pos.x + "y" + agent._pos.y + "{ background:" +
+            agent._style+ ";}";
     }
+    
     this._style.innerHTML = style;
   };
 
