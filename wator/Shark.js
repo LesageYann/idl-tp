@@ -8,8 +8,30 @@ class Shark extends Animal {
   };
 
   _perception() {
-    var pos, agent, res, prey = [],
+    var res, prey = [],
       free = [];
+    this._buildPreyAndFree( prey, free );
+    if ( prey.length ) {
+      console.log( "eat" )
+      res = prey;
+      this.eat( prey[ 0 ] );
+    } else {
+      this.lastEat = this.lastEat + 1;
+      if ( this.lastEat == this.constructor.starveTime ) {
+        this._env.killAgent( this );
+        console.log( "starve" )
+        res = []; //no move and kill
+      } else if ( free.length ) {
+        res = [ free[ 0 ] ];
+      } else {
+        res = []; //no move
+      }
+    }
+    return res;
+  }
+
+  _buildPreyAndFree( prey, free ) {
+    var pos, agent;
     for ( var i = -1; i < 2; i++ ) {
       for ( var j = -1; j < 2; j++ ) {
         pos = {
@@ -24,19 +46,11 @@ class Shark extends Animal {
         }
       }
     }
-    if ( prey.length ) {
-      res = prey;
-      this.eat( prey );
-    } else if ( free.length ) {
-      res = [ free[ 0 ] ];
-    } else {
-      res = []; //no move
-    }
-    return res;
   }
 
-  eat( prey ) {
-    this._env.killAgent( prey );
+  eat( preyPos ) {
+    this.lastEat = 0;
+    this._env.killAgent( this._env.getCase( preyPos ) );
   }
 
   chosePossibleMove( possible ) {
@@ -49,4 +63,5 @@ Shark.style = {
   adult: "url('../images/shark-red.png')",
   baby: "url('../images/shark-pink.png')"
 }
-Shark.breedTime = config.shark.breedTime || 10;;
+Shark.breedTime = config.shark.breedTime || 10;
+Shark.starveTime = config.shark.starveTime || 3;

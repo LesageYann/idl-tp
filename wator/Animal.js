@@ -11,8 +11,11 @@ class Animal extends Agent {
     if ( possible.length > 0 ) {
       this._move( this.chosePossibleMove( possible ) );
     }
-    if ( this.lastPos != null && this._env.isFree( this.lastPos ) )
+    if ( this.lastPos != null && this._env.isFree( this.lastPos ) ) {
       this.breed();
+    } else {
+      console.log( "dont create", this.constructor.name )
+    }
     //   console.log( "agent end", this._pos );
   };
 
@@ -40,7 +43,7 @@ class Animal extends Agent {
     this.age++;
     // == to make only once time the set of style
     if ( this.age == this.constructor.breedTime ) {
-      this._style = this.setAdultStyle();
+      this.setAdultStyle();
     }
 
     if ( !( this.age % this.constructor.breedTime ) ) {

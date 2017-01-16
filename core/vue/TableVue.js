@@ -28,8 +28,9 @@ class TableVue {
     var span = document.createElement( 'span' );
     var numberOfAgents = this._env.getNumberOfAgents();
     var agentsDetails = 'Tick: ' + this._env.getTick() + "\n<br/><br/>";
-
-    for ( var agentName in numberOfAgents ) {
+    var keys = Object.keys( numberOfAgents );
+    for ( var i = 0; i < keys.length; i++ ) {
+      var agentName = keys[ i ];
       agentsDetails += agentName + "\n Population: " + numberOfAgents[ agentName ] + "\n<br/>" +
         "#Initial : " + config.particules[ agentName ] + "\n<br/>";
       if ( config.params ) {

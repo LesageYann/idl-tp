@@ -5,6 +5,7 @@ class SMA {
     this._hasChanged = false;
     this._tick = 0;
     this._counter = counter;
+    this._toKill = [];
   }
 
   run() {
@@ -23,9 +24,25 @@ class SMA {
     this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] + 1;
   }
 
+  /*
+   * record agents to kill at the end of turn
+   */
   killAgent( agent ) {
-    this._agents.slice( this._agents.indexOf( agent ), 1 );
-    this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] - 1;
+    this._toKill.push( agent );
+  }
+
+  /*
+   * kill agents at the end of turn
+   */
+  _killAgents() {
+    var agent;
+    console.log( "kill agents ", this._toKill.length );
+    for ( var i = 0; i < this._toKill.length; i++ ) {
+      agent = this._toKill[ i ];
+      this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] - 1;
+      this._agents.splice( this._agents.indexOf( agent ), 1 );
+    }
+    this._toKill = [];
   }
 
   launchTurn() {
@@ -43,6 +60,7 @@ class SMA {
 
   turn() {
     this._executeTurn[ config.sheduling ]( this );
+    this._killAgents();
 
     if ( this.hasChanged() ) {
       this.notifyObserver();
@@ -93,14 +111,15 @@ class SMA {
     var i, l = sma._agents.length;
     for ( i = l; i; i-- ) {
       sma._agents[ Math.floor( Math.random() * l ) ].decide();
+      sma.setChanged();
     }
   };
 
   function sequential( sma ) {
     //nothing todo, always the same order
-    var length = sma._agents.length
-    for ( var i = 0; i < length; i++ ) {
+    for ( var i = 0; i < sma._agents.length; i++ ) {
       sma._agents[ i ].decide();
+      sma.setChanged();
     }
   }
 
