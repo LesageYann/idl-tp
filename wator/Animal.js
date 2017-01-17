@@ -52,7 +52,7 @@ class Animal extends Agent {
   breed() {
     this.age++;
 
-    if ( !( this.age % this.constructor.breedTime ) ) {
+    if (!( this.age % this.constructor.breedTime ) ) {
       // == to make only once time the set of style
       if ( this.age == this.constructor.breedTime ) {
         this.setAdultStyle();
@@ -62,6 +62,7 @@ class Animal extends Agent {
       }
     }
   }
+  
 
   _move( pos, offset ) {
     var agent;

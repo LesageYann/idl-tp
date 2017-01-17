@@ -34,7 +34,7 @@ window.onload = function () {
 
   function createTrace() {
     if ( config.trace ) {
-      trace = new Trace();
+      trace = new Trace(null, env);
       sma.addObserver( trace );
     }
   }
