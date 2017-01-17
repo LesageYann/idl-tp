@@ -13,10 +13,10 @@ var config = {
     unit: 'px'
   },
   box: {
-    size: 5,
+    size: 10,
     unit: 'px'
   },
-  delay: 100, //if delay null, manual refresh
+  delay: 50, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,
@@ -25,7 +25,8 @@ var config = {
   refresh: 1, //if(tick%refresh ==0)
   particules: {
     Fish: 400,
-    Shark: 20
+    Shark: 10,
+    SharkRandom: 10
   },
   fish: {
     breedTime: 2
@@ -34,5 +35,5 @@ var config = {
     breedTime: 8,
     starveTime: 4
   },
-  render: "WebGLVue" // WebGLVue or TableVue
-}
+  render: "TableVue" // WebGLVue or TableVue
+};
