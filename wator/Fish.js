@@ -16,4 +16,8 @@ Fish.style = {
   adult: "url('../images/fish-blue.png')",
   baby: "url('../images/fish-green.png')"
 }
+Fish.color = {
+  adult: "rgb(61,148,255)",
+  baby: "rgb(39,201,90)"
+}
 Fish.breedTime = config.fish.breedTime || 2;

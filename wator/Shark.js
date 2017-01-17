@@ -61,5 +61,9 @@ Shark.style = {
   adult: "url('../images/shark-red.png')",
   baby: "url('../images/shark-pink.png')"
 }
+Shark.color = {
+  adult: "rgb(216,36,36)",
+  baby: "rgb(255,180,180)"
+}
 Shark.breedTime = config.shark.breedTime || 10;
 Shark.starveTime = config.shark.starveTime || 3;
