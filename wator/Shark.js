@@ -12,13 +12,11 @@ class Shark extends Animal {
       free = [];
     this._buildPreyAndFree( prey, free );
     if ( prey.length ) {
-      console.log( "eat" );
       res = prey;
       this.eat( prey[ 0 ] );
     } else {
       this.lastEat = this.lastEat + 1;
       if ( this.lastEat == this.constructor.starveTime ) {
-        console.log( "starve" );
         this._env.killAgent( this );
         res = []; //no move and kill
       } else if ( free.length ) {
@@ -62,6 +60,10 @@ class Shark extends Animal {
 Shark.style = {
   adult: "url('../images/shark-red.png')",
   baby: "url('../images/shark-pink.png')"
+}
+Shark.color = {
+  adult: "rgb(216,36,36)",
+  baby: "rgb(255,180,180)"
 }
 Shark.breedTime = config.shark.breedTime || 10;
 Shark.starveTime = config.shark.starveTime || 3;

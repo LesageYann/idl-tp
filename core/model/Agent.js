@@ -13,6 +13,12 @@ class Agent {
     this._env = env;
     this._changeDir = false;
     this.offset = Agent.direction[ Math.floor( Math.random() * 8 ) ];
+
+    this.isAlive = true;
+  }
+
+  die() {
+    this.isAlive = false;
   }
 
   x() {
@@ -28,6 +34,10 @@ class Agent {
   };
 
   style() {
+    return this._style;
+  };
+
+  color() {
     return this._style;
   };
 

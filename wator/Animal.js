@@ -1,27 +1,19 @@
-/* This agent can genere a new agent
+/* This agentisabstract. this add age, breed and change style in function of age
  */
 class Animal extends Agent {
   constructor( x, y, env ) {
     super( x, y, env );
     this.age = 0;
-    this.isAlive = true;
-  }
-  
-  die(){
-    this.isAlive = false;
   }
 
+
   decide() {
-    if(this.isAlive) {
+    if ( this.isAlive ) {
       var possible = this._perception();
-      if (possible.length > 0) {
-        this._move(this.chosePossibleMove(possible));
+      if ( possible.length > 0 ) {
+        this._move( this.chosePossibleMove( possible ) );
       }
-      if (this.lastPos != null && this._env.isFree(this.lastPos)) {
-        this.breed();
-      } else {
-        console.log("dont create", this.constructor.name)
-      }
+      this.breed();
     }
     //   console.log( "agent end", this._pos );
   };
@@ -35,26 +27,39 @@ class Animal extends Agent {
   }
 
   setBabyStyle() {
-    this._style = this.constructor.style.baby;
+    this.setStyle( "baby" )
   }
 
   setAdultStyle() {
-    this._style = this.constructor.style.adult;
+    this.setStyle( "adult" )
   }
 
+  setStyle( step ) {
+    this._style = this.constructor.style[ step ];
+    this._color = this.constructor.color[ step ];
+  }
+
+  color() {
+    return this._color;
+  };
+
   _createNew() {
-    return new this.constructor( this.x(), this.y(), this._env );
+    if ( this._env.isFree( this.lastPos ) ) {
+      this._env.addAgent( new this.constructor( this.lastPos.x, this.lastPos.y, this._env ) );
+    }
   }
 
   breed() {
     this.age++;
-    // == to make only once time the set of style
-    if ( this.age == this.constructor.breedTime ) {
-      this.setAdultStyle();
-    }
 
     if ( !( this.age % this.constructor.breedTime ) ) {
-      this._env.addAgent( this._createNew() );
+      // == to make only once time the set of style
+      if ( this.age == this.constructor.breedTime ) {
+        this.setAdultStyle();
+      }
+      if ( this.lastPos != null ) {
+        this._createNew();
+      }
     }
   }
 

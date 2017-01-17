@@ -2,37 +2,37 @@ var config = {
   grid: {
     toric: true,
     size: {
-      x: 30, //default 50
-      y: 10 //default 50
+      x: 100, //default 50
+      y: 60 //default 50
     }
   },
   canvasDisplay: true,
   canvasSize: {
-    x: 600,
-    y: 300,
+    x: 1000,
+    y: 600,
     unit: 'px'
   },
   box: {
-    size: 15,
+    size: 5,
     unit: 'px'
   },
-  delay: 200, //if delay null, manual refresh
+  delay: 100, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,
   panel: true,
   seed: 'any string', //radom if null
-  refresh: 2, //if(tick%refresh ==0)
+  refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Fish: 40,
-    Shark: 10
+    Fish: 400,
+    Shark: 20
   },
   fish: {
-    breedTime: 10
+    breedTime: 2
   },
   shark: {
-    breedTime: 10,
+    breedTime: 8,
     starveTime: 4
   },
-  render: "TableVue" // WebGLVue or TableVue
-};
+  render: "WebGLVue" // WebGLVue or TableVue
+}

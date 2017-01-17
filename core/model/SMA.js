@@ -63,10 +63,11 @@ class SMA {
 
   turn() {
     this._executeTurn[ config.sheduling ]( this );
+    var killed = this._toKill;
     this._killAgents();
 
     if ( this.hasChanged() ) {
-      this.notifyObserver();
+      this.notifyObserver( killed );
     }
   };
 
@@ -82,9 +83,9 @@ class SMA {
     this._observers.push( observer );
   };
 
-  notifyObserver() {
+  notifyObserver( killed ) {
     for ( var i = 0; i < this._observers.length; i++ ) {
-      this._observers[ i ].update( this._agents );
+      this._observers[ i ].update( this._agents, killed );
     }
     this._hasChanged = false;
   };
@@ -122,7 +123,6 @@ class SMA {
     //nothing todo, always the same order
     for ( var i = 0; i < sma._agents.length; i++ ) {
       sma._agents[ i ].decide();
-      console.log(sma._agents[ i ].constructor.name);
       sma.setChanged();
     }
   }
