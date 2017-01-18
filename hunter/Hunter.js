@@ -4,7 +4,7 @@
 class Hunter extends Agent {
 
   constructor( x, y, env, style ) {
-    style = "url('../images/avatar.gif')";
+    style = "url('../images/hunter.gif')";
     super( x, y, env, style );
   };
 
