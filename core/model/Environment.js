@@ -62,7 +62,7 @@ class Environment {
     this._plan[ newPos.x ][ newPos.y ] = agent;
     this._sma.setChanged();
   };
-    
+
   _handleBound( newPos ) {
     if ( this._toric ) {
       if ( newPos.x >= this._x || newPos.x < 0 ) {
@@ -73,10 +73,10 @@ class Environment {
       }
     } else {
       if ( newPos.x >= this._x || newPos.x < 0 ) {
-        throw new ExceptionXBound( newPos.x );
+        throw new ExceptionBound( newPos.x, "x" );
       }
       if ( newPos.y >= this._y || newPos.y < 0 ) {
-        throw new ExceptionYBound( newPos.y );
+        throw new ExceptionBound( newPos.y, "y" );
       }
     }
   };

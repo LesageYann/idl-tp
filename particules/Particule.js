@@ -29,12 +29,12 @@ class Particule extends Agent {
         this.setPos( pos );
       }
     } catch ( e ) {
-      console.log( e );
       if ( offset == null ) {
         throw e;
       }
-      pos[ e.direction() ] = this[ "_" + e.direction() ] - offset[ e.direction() ];
-      agent = this._env.moveAgent( this, pos );
+      pos[ e.direction ] = this._pos[ e.direction ] - offset[ e.direction ];
+      offset[ e.direction ] = -offset[ e.direction ];
+      this._move( pos, offset );
     }
   };
 }
