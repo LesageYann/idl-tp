@@ -29,20 +29,28 @@ class Shark extends Animal {
   }
 
   _buildPreyAndFree( prey, free ) {
-    var pos, agent;
+    var pos;
     for ( var i = -1; i < 2; i++ ) {
       for ( var j = -1; j < 2; j++ ) {
         pos = {
           x: this.x() + i,
           y: this.y() + j
         };
-        agent = this._env.getCase( pos );
-        if ( agent == null ) {
-          free.push( pos );
-        } else if ( agent instanceof Fish ) {
-          prey.push( pos );
-        }
+        this._builderAddPos( pos, prey, free );
       }
+    }
+  }
+
+  _builderAddPos( pos, prey, free ) {
+    try {
+      var agent = this._env.getCase( pos );
+      if ( agent == null ) {
+        free.push( pos );
+      } else if ( agent instanceof Fish ) {
+        prey.push( pos );
+      }
+    } catch ( e ) {
+      //if the case don't exist we do nothing
     }
   }
 

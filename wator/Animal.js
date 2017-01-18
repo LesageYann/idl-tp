@@ -11,7 +11,11 @@ class Animal extends Agent {
     if ( this.isAlive ) {
       var possible = this._perception();
       if ( possible.length > 0 ) {
+        //  try {
         this._move( this.chosePossibleMove( possible ) );
+        //  } catch ( e ) {
+        //if the case don't exist we do nothing
+        //  }
       }
       this.breed();
     }
@@ -52,7 +56,7 @@ class Animal extends Agent {
   breed() {
     this.age++;
 
-    if (!( this.age % this.constructor.breedTime ) ) {
+    if ( !( this.age % this.constructor.breedTime ) ) {
       // == to make only once time the set of style
       if ( this.age == this.constructor.breedTime ) {
         this.setAdultStyle();
@@ -62,7 +66,7 @@ class Animal extends Agent {
       }
     }
   }
-  
+
 
   _move( pos, offset ) {
     var agent;
