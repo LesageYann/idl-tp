@@ -10,8 +10,19 @@ class Environment {
     }; //mock before set sma
     for (var i = 0; i < this._x; i++) {
       this._plan[i] = [];
+      for (var j = 0; j < this._y; j++) {
+        this._plan[i][j] = {agent: null};
+      }
     }
     this.smaSet = false;
+  }
+
+  _resetAllDistance() {
+    for (var i = 0; i < this._x; i++) {
+      for (var j = 0; j < this._y; j++) {
+        this._plan[i][j].distance = -1;
+      }
+    }
   }
 
   isToric() {
@@ -33,12 +44,12 @@ class Environment {
   };
 
   addAgent(agent) {
-    this._plan[agent.x()][agent.y()] = agent;
+    this._plan[agent.x()][agent.y()].agent = agent;
     this._sma.addAgent(agent);
   }
 
   killAgent(agent) {
-    this._plan[agent.x()][agent.y()] = null;
+    this._plan[agent.x()][agent.y()].agent = null;
     this._sma.killAgent(agent);
     agent.die();
   }
@@ -48,9 +59,9 @@ class Environment {
    */
   moveAgent(agent, newPos) {
     this._handleBound(newPos);
-    this._plan[agent.x()][agent.y()] = null;
+    this._plan[agent.x()][agent.y()].agent = null;
     var res = this._plan[newPos.x][newPos.y];
-    this._plan[newPos.x][newPos.y] = agent;
+    this._plan[newPos.x][newPos.y].agent = agent;
     this._sma.setChanged();
     return res;
   };
@@ -60,7 +71,7 @@ class Environment {
    */
   setAgentAt(agent, newPos) {
     this._handleBound(newPos);
-    this._plan[newPos.x][newPos.y] = agent;
+    this._plan[newPos.x][newPos.y].agent = agent;
     this._sma.setChanged();
   };
 
@@ -81,6 +92,47 @@ class Environment {
       }
     }
   };
+
+// TOP BOTTOM LEFT RIGHT
+  getAround(pos) {
+    var around = [];
+    var aroundNotFree = [];
+    var positions = [
+      {
+        x: pos.x,
+        y: pos.y + 1
+      },
+      {
+        x: pos.x,
+        y: pos.y - 1
+      },
+      {
+        x: pos.x + 1,
+        y: pos.y
+      },
+      {
+        x: pos.x - 1,
+        y: pos.y
+      },
+    ];
+
+    for (var index in positions) {
+      var position = positions[index];
+      try {
+        this._handleBound(position);
+        if (this.isFree(position)) {
+          around.push(position);
+        }
+        else {
+          aroundNotFree.push(position);
+        }
+      } catch (e) {
+        //do nothing in this case
+      }
+    }
+
+    return {free: around, notFree: aroundNotFree};
+  }
 
   aroundFree(pos) {
     var res = [];
@@ -119,7 +171,7 @@ class Environment {
 
   isFree(pos) {
     this._handleBound(pos);
-    return this._plan[pos.x][pos.y] == null;
+    return this._plan[pos.x][pos.y].agent == null;
   };
 
   getNumberOfAgents() {

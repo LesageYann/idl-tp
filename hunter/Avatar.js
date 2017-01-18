@@ -9,6 +9,8 @@ class Avatar extends Agent {
     super(x, y, env, style);
     var self = this;
     this.letterBox = {lastDirection: {x: 0, y: 0}, direction: {x: 0, y: 0}};
+    this._dijkstra();
+
     window.onkeydown = function (e) {
       self.onKeyDown(e);
     };
@@ -29,21 +31,20 @@ class Avatar extends Agent {
     };
     if (this._perception(pos)) {
       this._move(pos);
-      //  this._dijkstra();
+      this._dijkstra();
     }
   };
 
 
   _dijkstra() {
-    console.log(this._pos);
+    this._env._resetAllDistance();
+    this._env._plan[this._pos.x][this._pos.y].distance = 0;
     var distance = 1;
     var listPos = [this._pos];
     while (listPos.length) {
-      console.log(listPos);
-      listPos = _dijkstraTurn(listPos, distance);
+      listPos = this._dijkstraTurn(listPos, distance);
       distance++;
     }
-    console.log(this._env._plan);
   };
 
   _dijkstraTurn(listPos, distance) {
@@ -51,15 +52,26 @@ class Avatar extends Agent {
     for (var index in listPos) {
       var pos = listPos[index];
       var around = this._env.getAround(pos);
-      for (var index in around) {
-        var position = around[index];
-        if (!this._env._plan[position.x][position.y].distance) {
+      var free = around.free;
+      var notFree = around.notFree;
+
+      for (var index in free) {
+        var position = free[index];
+        if (this._env._plan[position.x][position.y].distance < 0) {
           this._env._plan[position.x][position.y].distance = distance;
-          nextListPos.push(position);
+          if (position != this._pos) {
+            nextListPos.push(position);
+          }
+        }
+      }
+      for (var index in notFree) {
+        var position = notFree[index];
+        if (this._env._plan[position.x][position.y].distance < 0) {
+          this._env._plan[position.x][position.y].distance = distance;
         }
       }
     }
-    distance++;
+    return nextListPos;
   };
 
 
