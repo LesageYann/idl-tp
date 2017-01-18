@@ -36,15 +36,18 @@ class Avatar extends Agent {
   };
   
   _move(pos) {
-    try {
     this._env.moveAgent(this, pos);
     this.lastPos = this._pos;
     this._pos = pos;
-    }
   };
   
   _perception(pos) {
-    return this._env.isFree(pos)
+    try {
+      return this._env.isFree(pos);
+    }
+    catch (e) {
+      return false;
+    }
   }
 }
 
