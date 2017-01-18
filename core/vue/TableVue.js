@@ -46,7 +46,7 @@ class TableVue {
     var oldTable = this._canvas;
     this._canvas = document.createElement( 'table' );
 
-    for ( var y = 0; y < this._env.ySize(); y++ ) {
+    for ( var y = this._env.ySize() -1 ; y > -1 ; y-- ) {
       var tr = document.createElement( 'tr' );
       this._canvas.appendChild( tr );
 

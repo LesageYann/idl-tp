@@ -117,6 +117,7 @@ class Environment {
   };
 
   isFree( pos ) {
+    this._handleBound( pos );
     return this._plan[ pos.x ][ pos.y ] == null;
   };
 
