@@ -28,5 +28,11 @@ var config = {
     Avatar: 1,
     Hunter: 1
   },
+  hunter : {
+    speedModulo : 5
+  },
+  avatar : {
+    speedModulo : 2
+  },
   render: "TableVue" // WebGLVue or TableVue
 };

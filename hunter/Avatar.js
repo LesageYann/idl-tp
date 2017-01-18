@@ -25,13 +25,15 @@ class Avatar extends Agent {
   }
 
   decide() {
-    var pos = {
-      x: this._pos.x + this.letterBox.direction.x,
-      y: this._pos.y + this.letterBox.direction.y
-    };
-    if (this._perception(pos)) {
-      this._move(pos);
-      this._dijkstra();
+    if(! (this._env.getTick() % this.constructor.speedModulo )) {
+      var pos = {
+        x: this._pos.x + this.letterBox.direction.x,
+        y: this._pos.y + this.letterBox.direction.y
+      };
+      if (this._perception(pos)) {
+        this._move(pos);
+        this._dijkstra();
+      }
     }
   };
 
@@ -92,3 +94,4 @@ class Avatar extends Agent {
 }
 
 Avatar.CODE = {37: {x: -1, y: 0}, 38: {x: 0, y: 1}, 39: {x: 1, y: 0}, 40: {x: 0, y: -1}};
+Avatar.speedModulo = config.avatar.speedModulo || 1;
