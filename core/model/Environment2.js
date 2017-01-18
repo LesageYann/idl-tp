@@ -38,7 +38,7 @@ class Environment {
   }
 
   killAgent(agent) {
-    this._plan[agent.x()][agent.y()] = null;
+    this._plan[agent.x()][agent.y()] = {};
     this._sma.killAgent(agent);
     agent.die();
   }
@@ -48,7 +48,7 @@ class Environment {
    */
   moveAgent(agent, newPos) {
     this._handleBound(newPos);
-    this._plan[agent.x()][agent.y()] = null;
+    this._plan[agent.x()][agent.y()] = {};
     var res = this._plan[newPos.x][newPos.y];
     this._plan[newPos.x][newPos.y] = agent;
     this._sma.setChanged();
@@ -82,6 +82,43 @@ class Environment {
     }
   };
 
+  /*getAround(pos) {
+    var around = [];
+    var positions = [
+      {
+        x: pos.x,
+        y: pos.y + 1
+      },
+      {
+        x: pos.x,
+        y: pos.y - 1
+      },
+      {
+        x: pos.x + 1,
+        y: pos.y
+      },
+      {
+        x: pos.x - 1,
+        y: pos.y
+      },
+    ];
+
+    for (var index in positions) {
+      var position = positions[index];
+      try {
+        this._handleBound(position);
+        if (this.isFree(position)) {
+          around.push(position);
+        }
+
+      } catch (e) {
+        //do nothing in this case
+      }
+    }
+
+    return around;
+  }
+*/
   aroundFree(pos) {
     var res = [];
     for (var i = -1; i < 2; i++) {
@@ -119,7 +156,7 @@ class Environment {
 
   isFree(pos) {
     this._handleBound(pos);
-    return this._plan[pos.x][pos.y] == null;
+    return this._plan[pos.x][pos.y] == {};
   };
 
   getNumberOfAgents() {
