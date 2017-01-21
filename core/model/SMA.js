@@ -28,11 +28,22 @@ class SMA {
     this._counter[ agent.constructor.name ] = this._counter[ agent.constructor.name ] + 1;
   }
 
+  setNewAgents( agents ) {
+    this.killAllAgents();
+    this._agents = agents;
+  }
+
   /*
    * record agents to kill at the end of turn
    */
   killAgent( agent ) {
     this._toKill.push( agent );
+  }
+
+  killAllAgents() {
+    this._toKill = this._agents;
+    this._agents = [];
+    this._killAgents();
   }
 
   /*

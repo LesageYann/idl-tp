@@ -25,10 +25,12 @@ var config = {
   refresh: 1, //if(tick%refresh ==0)
   particules: {
     Fish: 4000,
-    //Shark: 100,
+    Shark: 100,
     //SharkRandom: 100,
-    SharkRandomAdult: 100
+    //SharkRandomAdult: 100
   },
+  possibleAgent: [ "Fish",
+  "Shark", "SharkRandom", "SharkRandomAdult" ],
   fish: {
     breedTime: 2
   },

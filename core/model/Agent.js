@@ -7,9 +7,9 @@ class Agent {
       x: x,
       y: y
     };
-    this._style = style || ( "rgb(" + Math.floor( Math.random() * 200 ) +
-      "," + Math.floor( Math.random() * 200 ) + "," +
-      Math.floor( Math.random() * 200 ) + ")" );
+    this._style = style || ( "rgb(" + ( Math.floor( Math.random() * 200 ) + 50 ) +
+      "," + ( Math.floor( Math.random() * 200 ) + 50 ) + "," +
+      ( Math.floor( Math.random() * 200 ) + 50 ) + ")" );
     this._env = env;
     this._changeDir = false;
     this.offset = Agent.direction[ Math.floor( Math.random() * 8 ) ];
