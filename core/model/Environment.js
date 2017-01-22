@@ -55,11 +55,12 @@ class Environment {
   }
 
   killAgent(agent) {
-    this._plan[agent.x()][agent.y()].agent = null;
-    this._sma.killAgent(agent);
-    agent.die();
+    if(! agent.invulnerable) {
+      this._plan[agent.x()][agent.y()].agent = null;
+      this._sma.killAgent(agent);
+      agent.die();
+    }
   }
-
 
   getRandomPos() {
     return {

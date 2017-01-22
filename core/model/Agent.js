@@ -7,6 +7,7 @@ class Agent {
       x: x,
       y: y
     };
+    this.invulnerable = 0;
     this.isWin = false;
     this._style = style || ( "rgb(" + Math.floor(Math.random() * 200) +
       "," + Math.floor(Math.random() * 200) + "," +
@@ -46,7 +47,9 @@ class Agent {
   };
 
   eat(preyPos) {
-    this._env.killAgent(this._env.getCase(preyPos).agent);
+    if (this._env.getCase(preyPos).agent.invulnerable <= 0) {
+      this._env.killAgent(this._env.getCase(preyPos).agent);
+    }
   }
 
   style() {

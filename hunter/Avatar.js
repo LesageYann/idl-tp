@@ -8,6 +8,7 @@ class Avatar extends Agent {
 
     super(x, y, env, style);
     var self = this;
+    this.invulnerable = 0;
     this.nbPillule = 0;
     this.letterBox = {lastDirection: {x: 0, y: 0}, direction: {x: 0, y: 0}};
     this._dijkstra();
@@ -26,6 +27,10 @@ class Avatar extends Agent {
   }
 
   decide() {
+    if (this.invulnerable) {
+      this.invulnerable--;
+    }
+
     if (!(this._env.getTick() % this.constructor.speedModulo )) {
       var pos = {
         x: this._pos.x + this.letterBox.direction.x,
@@ -41,10 +46,10 @@ class Avatar extends Agent {
           this._eatPillule(pos);
           this._move(pos);
           this._dijkstra();
+          this.invulnerable = Avatar.invulnerableTime;
         }
       }
     }
-    ;
 
     if (this.nbPillule > 3) {
       this.win();
@@ -115,3 +120,4 @@ class Avatar extends Agent {
 
 Avatar.CODE = {37: {x: -1, y: 0}, 38: {x: 0, y: 1}, 39: {x: 1, y: 0}, 40: {x: 0, y: -1}};
 Avatar.speedModulo = config.avatar.speedModulo || 1;
+Avatar.invulnerableTime = config.avatar.invulnerableTime;
