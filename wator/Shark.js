@@ -43,7 +43,7 @@ class Shark extends Animal {
 
   _builderAddPos(pos, prey, free) {
     try {
-      var agent = this._env.getCase(pos);
+      var agent = this._env.getCase(pos).agent;
       if (agent == null) {
         free.push(pos);
       } else if (agent instanceof Fish) {
@@ -68,10 +68,12 @@ class Shark extends Animal {
 Shark.style = {
   adult: "url('../images/shark-red.png')",
   baby: "url('../images/shark-pink.png')"
-}
+};
+
 Shark.color = {
   adult: "rgb(216,36,36)",
   baby: "rgb(255,180,180)"
-}
+};
+
 Shark.breedTime = config.shark.breedTime || 10;
 Shark.starveTime = config.shark.starveTime || 3;

@@ -1,15 +1,25 @@
 class TableVue {
   constructor(HTMLContainer, environment) {
-
     this._env = environment;
     this._container = HTMLContainer;
     this._style = document.createElement('style');
     this._refresh = config.refresh || 1;
     this._tick = this._refresh; // for drawing at the first tick
-
+    this.removeAllChilds();
     this._container.appendChild(this._style);
 
     this.init();
+  }
+
+  setGame(game){
+    this._game = game;
+  }
+
+  removeAllChilds() {
+    var childNodes = this._container.childNodes;
+    for (var index = childNodes.length - 1; index >= 0; index--) {
+      this._container.removeChild(childNodes[index]);
+    }
   }
 
   update(agents) {
@@ -57,13 +67,12 @@ class TableVue {
       span.innerHTML = 'You win !!';
     }
     else {
-      divAlert.className = "alert alert-danger";
-
+      div.className = "alert alert-danger";
       span.innerHTML = 'You lose !!';
     }
     var button = document.createElement('button');
     button.className = "btn btn-success";
-    button.onclick = this._env.replay;
+    button.onclick = this._game.play;
     button.innerHTML = 'Replay';
     divAlert.appendChild(span);
     div.appendChild(divAlert);
@@ -92,14 +101,16 @@ class TableVue {
         tr.insertCell(x).id = "x" + x + "y" + y;
       }
     }
-    console.log(this._container);
+
     if (config.canvasDisplay) {
       if (oldTable == null) {
+        // this._container.removeChild(this._container.lastChild);
+
         this._container.appendChild(this._canvas);
       } else {
+
         this._container.replaceChild(this._canvas, oldTable);
       }
     }
-  }
-  ;
+  };
 }

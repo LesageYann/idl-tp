@@ -2,8 +2,8 @@ var config = {
   grid: {
     toric: true,
     size: {
-      x: 100, //default 50
-      y: 100 //default 50
+      x: 30, //default 50
+      y: 30 //default 50
     }
   },
   canvasDisplay: true,
@@ -13,7 +13,7 @@ var config = {
     unit: 'px'
   },
   box: {
-    size: 10,
+    size: 20,
     unit: 'px'
   },
   delay: 200, //if delay null, manual refresh
@@ -22,15 +22,15 @@ var config = {
   trace: true,
   panel: true,
   seed: 'any string', //radom if null
-  refresh: 1, //if(tick%refresh ==0)
+  refresh: 1, //if(tick%refresh == 0)
   particules: {
-    Wall: 100,
+    Wall: 200,
     Avatar: 1,
     Hunter: 3,
     Pillule:  1
   },
   hunter : {
-    speedModulo : 5
+    speedModulo : 3
   },
   avatar : {
     speedModulo : 1
