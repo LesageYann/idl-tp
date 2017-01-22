@@ -2,8 +2,8 @@ var config = {
   grid: {
     toric: true,
     size: {
-      x: 10, //default 50
-      y: 10 //default 50
+      x: 100, //default 50
+      y: 100 //default 50
     }
   },
   canvasDisplay: true,
@@ -13,7 +13,7 @@ var config = {
     unit: 'px'
   },
   box: {
-    size: 20,
+    size: 10,
     unit: 'px'
   },
   delay: 200, //if delay null, manual refresh
@@ -24,15 +24,16 @@ var config = {
   seed: 'any string', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Wall: 1,
+    Wall: 100,
     Avatar: 1,
-    Hunter: 1
+    Hunter: 3,
+    Pillule:  1
   },
   hunter : {
     speedModulo : 5
   },
   avatar : {
-    speedModulo : 2
+    speedModulo : 1
   },
   render: "TableVue" // WebGLVue or TableVue
 };

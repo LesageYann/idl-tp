@@ -14,11 +14,16 @@ class TableVue {
 
   update(agents) {
     //control refresh ofdrawing
-    if (this._tick == this._refresh) {
-      this._repaint(agents);
-      this._tick = 0;
+    if (this._env.end) {
+      this.end();
     }
-    this._tick++;
+    else {
+      if (this._tick == this._refresh) {
+        this._repaint(agents);
+        this._tick = 0;
+      }
+      this._tick++;
+    }
   };
 
   _repaint(agents) {
@@ -31,17 +36,41 @@ class TableVue {
         agent._style + ";}";
     }
 
-   /* for (var x = 0; x < config.grid.size.x; x++) {
-      for (var y = 0; y < config.grid.size.y; y++) {
-        var td = document.getElementById("x" + x + "y" + y);
-        td.innerHTML = this._env._plan[x][y].distance;
-      }
-
-    }
-    */
     this._style.innerHTML = style;
 
   };
+
+  end() {
+    var oldTable = this._canvas;
+
+    this._style.innerHTML = "";
+    var div = document.createElement('div');
+
+    var divAlert = document.createElement('div');
+    divAlert.role = "alert";
+    var span = document.createElement('span');
+    span.className = "glyphicon glyphicon-exclamation-sign";
+    divAlert.appendChild(span);
+    span = document.createElement('span');
+    if (this._env.win) {
+      div.className = "alert alert-success";
+      span.innerHTML = 'You win !!';
+    }
+    else {
+      divAlert.className = "alert alert-danger";
+
+      span.innerHTML = 'You lose !!';
+    }
+    var button = document.createElement('button');
+    button.className = "btn btn-success";
+    button.onclick = this._env.replay;
+    button.innerHTML = 'Replay';
+    divAlert.appendChild(span);
+    div.appendChild(divAlert);
+    div.appendChild(button);
+    this._canvas = div;
+    this._container.replaceChild(this._canvas, oldTable);
+  }
 
   init() {
     this._basicStyle = "table{border-collapse: collapse;width:" +
@@ -63,7 +92,7 @@ class TableVue {
         tr.insertCell(x).id = "x" + x + "y" + y;
       }
     }
-
+    console.log(this._container);
     if (config.canvasDisplay) {
       if (oldTable == null) {
         this._container.appendChild(this._canvas);

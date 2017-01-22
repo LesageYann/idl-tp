@@ -26,5 +26,5 @@ var config = {
   particules: {
     Particule: 2000
   },
-  render: "WebGLVue" // WebGLVue or TableVue
+  render: "TableVue" // WebGLVue or TableVue
 };

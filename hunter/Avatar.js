@@ -8,6 +8,7 @@ class Avatar extends Agent {
 
     super(x, y, env, style);
     var self = this;
+    this.nbPillule = 0;
     this.letterBox = {lastDirection: {x: 0, y: 0}, direction: {x: 0, y: 0}};
     this._dijkstra();
 
@@ -25,22 +26,40 @@ class Avatar extends Agent {
   }
 
   decide() {
-    if(! (this._env.getTick() % this.constructor.speedModulo )) {
+    if (!(this._env.getTick() % this.constructor.speedModulo )) {
       var pos = {
         x: this._pos.x + this.letterBox.direction.x,
         y: this._pos.y + this.letterBox.direction.y
       };
+
       if (this._perception(pos)) {
         this._move(pos);
         this._dijkstra();
       }
+      else {
+        if (this._env._plan[pos.x][pos.y].agent && this._env._plan[pos.x][pos.y].agent.constructor.name == "Pillule") {
+          this._eatPillule(pos);
+          this._move(pos);
+          this._dijkstra();
+        }
+      }
+    }
+    ;
+
+    if (this.nbPillule > 3) {
+      this.win();
     }
   };
 
+  _eatPillule(pos) {
+    this.eat(pos);
+    this.nbPillule++;
+  };
 
   _dijkstra() {
     this._env._resetAllDistance();
     this._env._plan[this._pos.x][this._pos.y].distance = 0;
+    this._env.destination = this._pos;
     var distance = 1;
     var listPos = [this._pos];
     while (listPos.length) {
@@ -69,6 +88,7 @@ class Avatar extends Agent {
       for (var index in notFree) {
         var position = notFree[index];
         if (this._env._plan[position.x][position.y].distance < 0) {
+          this._env._plan[position.x][position.y].agent.distance = distance;
           this._env._plan[position.x][position.y].distance = distance;
         }
       }
