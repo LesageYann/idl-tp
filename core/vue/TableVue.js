@@ -11,7 +11,7 @@ class TableVue {
     this.init();
   }
 
-  setGame(game){
+  setGame(game) {
     this._game = game;
   }
 
@@ -44,8 +44,16 @@ class TableVue {
       var agent = agents[index];
       style += " #x" + agent._pos.x + "y" + agent._pos.y + "{ background:" +
         agent._style + ";}";
+
     }
 
+    /*for (var x = 0; x < this._env.xSize(); x++) {
+      for (var y = 0; y < this._env.ySize(); y++) {
+        var td = document.getElementById("x" + x + "y" + y);
+        td.innerHTML = this._env.getCase({x: x, y: y}).distance;
+      }
+    }
+    */
     this._style.innerHTML = style;
 
   };

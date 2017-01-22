@@ -21,12 +21,14 @@ class Hunter extends Agent {
       var positionMin = this._pos;
       for (var index in free) {
         var position = free[index];
+        var distance = this._env._plan[position.x][position.y].distance;
+
         if (!min) {
-          min = this._env._plan[position.x][position.y].distance;
+          min = distance;
         }
         else {
-          if (this._env._plan[position.x][position.y].distance < min) {
-            min = this._env._plan[position.x][position.y].distance;
+          if (distance < min && distance > -1) {
+            min = distance;
             positionMin = position;
           }
         }
