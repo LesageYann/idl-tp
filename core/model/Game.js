@@ -28,8 +28,7 @@ Game.createAgents = function (particules, agents) {
       });
     }
   }
-  console.log(agents);
-  
+
   Game.sma = new SMA(agents, config.particules);
   var vue = createVue(config.render || "TableVue", document.getElementById('view'), Game.env);
   Game.env.setSMA(Game.sma);
