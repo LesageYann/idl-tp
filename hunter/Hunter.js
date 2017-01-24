@@ -14,7 +14,7 @@ class Hunter extends Agent {
       if (distance == 1) {
         var agent = this._env.getAgent(this._env.destination);
         if (!agent.invulnerable) {
-          agent.lose();
+          agent.die();// maybe ligth to avoid bug
         }
       }
       var around = this._env.getAround(this._pos);

@@ -4,44 +4,38 @@
 class Defender extends Agent {
 
   constructor(x, y, env, style, nbEat) {
-    style = "url('../images/defender.png')";
+    style = style || "url('../images/defender.png')";
     super(x, y, env, style);
-    if (!nbEat) {
-      nbEat = 0;
-    }
     this.nbTurnMax = this._env.getDistanceMax();
     this.nbTurn = 0;
-    this.nbEat = nbEat;
+    this.nbEat = nbEat || 0;
   };
 
   decide() {
-    this.nbTurn++;
-    if (this.nbTurn > this.nbTurnMax) {
-      this.die(true);
+    if(this.isAlive){
+      this.nbTurn++;
+      if (this.nbTurn > this.nbTurnMax) {
+        this.die(true);
+      }
     }
   };
 
   die(expire) {
-
+    super.die();
     var pos = this._env.getFreeRandomPos();
-    if (expire) {
-      var nbEat = this.nbEat;
-      this._env.addAgent(new this.constructor(pos.x, pos.y, this._env, null, nbEat));
-      this._env.killWithoutDie(this);
+    if (!expire) {
+      this.nbEat++;
+    }
+    var nbEat = this.nbEat;
+    console.log(nbEat, expire)
+    if (nbEat < 4) {
+      var ag =new this.constructor(pos.x, pos.y, this._env, null, nbEat)
+      console.log(ag== this, this == this,ag)
+      this._env.addAgent(ag);
     }
     else {
-      super.die();
-      this.nbEat++;
-      var nbEat = this.nbEat;
-      if (nbEat < 4) {
-        this._env.addAgent(new this.constructor(pos.x, pos.y, this._env, null, nbEat));
-      }
-      else {
-        this._env.addAgent(new Win(pos.x, pos.y, this._env, null));
-
-      }
+      this._env.addAgent(new Win(pos.x, pos.y, this._env, null));
     }
-
-//
   };
+
 }

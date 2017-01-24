@@ -17,6 +17,8 @@ class Agent {
     this.isAlive = true;
   }
 
+ /* not the good place
+ we never say wath make to a agent !
   win() {
     this.isWin = true;
     this._env.stop(this);
@@ -26,10 +28,11 @@ class Agent {
     this.isWin = false;
     this._env.stop(this);
     this.die();
-  };
+  };*/
 
   die() {
     this.isAlive = false;
+      this._env.killAgent(this);
   }
 
   x() {
@@ -43,12 +46,6 @@ class Agent {
   pos() {
     return this._pos;
   };
-
-  eat(preyPos) {
-    if (this._env.getCase(preyPos).agent.invulnerable <= 0) {
-      this._env.killAgent(this._env.getCase(preyPos).agent);
-    }
-  }
 
   style() {
     return this._style;

@@ -62,7 +62,8 @@ class Environment {
     if(! agent.invulnerable) {
       this._plan[agent.x()][agent.y()].agent = null;
       this._sma.killAgent(agent);
-      agent.die();
+      if(agent.isAlive)// must be clean when refactor
+        agent.die();
     }
   }
 
@@ -224,15 +225,15 @@ class Environment {
 
   getDistanceMax(){
     return this.ySize() + this.xSize();
-  } 
+  }
 
   getAgent(pos) {
     return this._sma.getAgent(pos);
   }
 
-  stop(agent) {
-    this._sma.stop(agent);
-    this.win = agent.isWin;
+  stop(win) {
+    this._sma.stop();
+    this.win = win;
     this.end = true;
   }
 }

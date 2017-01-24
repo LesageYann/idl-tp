@@ -1,13 +1,20 @@
 /* This agent exchange position if position is already occuped
  */
 
-class Win extends Agent {
+class Win extends Defender {
 
   constructor(x, y, env, style) {
-    style = "url('../images/win.png')";
+    style = style || "url('../images/win.png')";
     super(x, y, env, style);
-    this.age = 0;
-    this.nbEat = 0;
+  };
+
+
+  die(expire) {
+    if(expire){
+      super.die(expire);
+    }else{
+      this._env.stop( true);
+    }
   };
 
   decide() {
