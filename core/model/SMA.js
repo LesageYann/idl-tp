@@ -31,7 +31,7 @@ class SMA {
     }
   }
 
-  stop(agent){
+  stop(){
     window.clearInterval(self._intervalID);
   }
 

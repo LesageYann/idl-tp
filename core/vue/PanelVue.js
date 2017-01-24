@@ -2,15 +2,15 @@ class PanelVue {
   constructor(HTMLContainer, environment) {
 
     this._env = environment;
-    this._container = HTMLContainer;
-    if (this._container) {
-      this._style = document.createElement('style');
+    this._container = HTMLContainer || document.getElementByTagName('body')[0];
+    this._style = document.createElement('style');
 
-      this._container.appendChild(this._style);
+    this._container.appendChild(this._style);
 
     this._div = document.createElement( 'div' );
     this._container.appendChild( this._div );
-    this.addFormCustom();
+    if(config.possibleAgent!= null)
+      this.addFormCustom();
   }
 
   addFormCustom() {
@@ -35,15 +35,15 @@ class PanelVue {
     this._container.appendChild( this._form );
   }
 
-  update(agents) {
-    if (this._container) {
-      this._repaint(agents);
-    }
   custom() {
     for ( var i = 0; i < config.possibleAgent.length; i++ ) {
       config.particules[ config.possibleAgent[ i ] ] = this._form[ config.possibleAgent[ i ] ].value || config.particules[ config.possibleAgent[ i ] ];
     }
-    main.newSimu();
+    this._env.restart();
+  }
+
+  update(agents) {
+    this._repaint(agents);
   }
 
   update( agents ) {
