@@ -188,4 +188,8 @@ class Environment {
     return 0;
   }
 
+  getDistanceMax(){
+    return this.ySize() + this.xSize();
+  } 
+
 }
