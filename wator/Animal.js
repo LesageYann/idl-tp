@@ -1,6 +1,6 @@
 /* This agentisabstract. this add age, breed and change style in function of age
  */
-class Animal extends Agent {
+class Animal extends KillerAgent {
   constructor( x, y, env ) {
     super( x, y, env );
     this.age = 0;

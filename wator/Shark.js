@@ -56,7 +56,7 @@ class Shark extends Animal {
 
   eat( preyPos ) {
     this.lastEat = 0;
-    this._env.killAgent( this._env.getCase( preyPos ) );
+    super.eat( preyPos );
   }
 
   chosePossibleMove( possible ) {
