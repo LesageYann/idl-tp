@@ -9,19 +9,28 @@ class Hunter extends Agent {
   };
 
   decide() {
-    if(! (this._env.getTick() % this.constructor.speedModulo )) {
+    if (!(this._env.getTick() % this.constructor.speedModulo )) {
+      var distance = this._env._plan[this._pos.x][this._pos.y].distance;
+      if (distance == 1) {
+        var agent = this._env.getAgent(this._env.destination);
+        if (!agent.invulnerable) {
+          agent.lose();
+        }
+      }
       var around = this._env.getAround(this._pos);
       var free = around.free;
       var min = this._env._plan[this._pos.x][this._pos.y].distance;
       var positionMin = this._pos;
       for (var index in free) {
         var position = free[index];
+        var distance = this._env._plan[position.x][position.y].distance;
+
         if (!min) {
-          min = this._env._plan[position.x][position.y].distance;
+          min = distance;
         }
         else {
-          if (this._env._plan[position.x][position.y].distance < min) {
-            min = this._env._plan[position.x][position.y].distance;
+          if (distance < min && distance > -1) {
+            min = distance;
             positionMin = position;
           }
         }

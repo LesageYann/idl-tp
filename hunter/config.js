@@ -2,10 +2,11 @@ var config = {
   grid: {
     toric: true,
     size: {
-      x: 10, //default 50
-      y: 10 //default 50
+      x: 30, //default 50
+      y: 30 //default 50
     }
   },
+  labyrinth : false,
   canvasDisplay: true,
   canvasSize: {
     x: 1000,
@@ -21,18 +22,20 @@ var config = {
   nbTicks: 0, //infinite if 0
   trace: true,
   panel: true,
-  seed: 'any string', //radom if null
-  refresh: 1, //if(tick%refresh ==0)
+  seed: null, //radom if null
+  refresh: 1, //if(tick%refresh == 0)
   particules: {
-    Wall: 1,
     Avatar: 1,
-    Hunter: 1
+    Hunter: 3,
+    Defender:  1,
+    Wall : 30 * 30 * 15 /100
   },
   hunter : {
-    speedModulo : 5
+    speedModulo : 3
   },
   avatar : {
-    speedModulo : 2
+    speedModulo : 1,
+    invulnerableTime : 10
   },
   render: "TableVue" // WebGLVue or TableVue
 };
