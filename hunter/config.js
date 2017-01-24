@@ -6,6 +6,7 @@ var config = {
       y: 30 //default 50
     }
   },
+  labyrinth : false,
   canvasDisplay: true,
   canvasSize: {
     x: 1000,
@@ -21,13 +22,13 @@ var config = {
   nbTicks: 0, //infinite if 0
   trace: true,
   panel: true,
-  seed: 'any string', //radom if null
+  seed: null, //radom if null
   refresh: 1, //if(tick%refresh == 0)
   particules: {
-    Wall: 200,
     Avatar: 1,
     Hunter: 3,
-    Defender:  1
+    Defender:  1,
+    Wall : 30 * 30 * 15 /100
   },
   hunter : {
     speedModulo : 3
