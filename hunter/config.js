@@ -27,7 +27,7 @@ var config = {
     Wall: 200,
     Avatar: 1,
     Hunter: 3,
-    Pillule:  1
+    Defender:  1
   },
   hunter : {
     speedModulo : 3

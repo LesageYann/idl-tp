@@ -43,6 +43,10 @@ class Environment {
     return this._y;
   };
 
+  getDistanceMax(){
+    return this.ySize() + this.xSize();
+  }
+
   setSMA(sma) {
     this._sma = sma;
     this.smaSet = true;
@@ -60,6 +64,13 @@ class Environment {
       this._sma.killAgent(agent);
       agent.die();
     }
+  }
+
+  killWithoutDie(agent){
+  if(! agent.invulnerable) {
+    this._plan[agent.x()][agent.y()].agent = null;
+    this._sma.killAgent(agent);
+  }
   }
 
   getRandomPos() {

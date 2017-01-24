@@ -24,7 +24,7 @@ class Avatar extends Agent {
       this.letterBox.lastDirection = this.letterBox.direction;
       this.letterBox.direction = this.constructor.CODE[code];
     }
-  }
+  };
 
   decide() {
     if (this.invulnerable) {
@@ -42,17 +42,22 @@ class Avatar extends Agent {
         this._dijkstra();
       }
       else {
-        if (this._env._plan[pos.x][pos.y].agent && this._env._plan[pos.x][pos.y].agent.constructor.name == "Pillule") {
-          this._eatPillule(pos);
-          this._move(pos);
-          this._dijkstra();
-          this.invulnerable = Avatar.invulnerableTime;
+        var agent = this._env._plan[pos.x][pos.y].agent;
+        if (agent) {
+          var name = agent.constructor.name;
+          if (name == "Defender") {
+            this._eatPillule(pos);
+            this._move(pos);
+            this._dijkstra();
+            this.invulnerable = Avatar.invulnerableTime;
+          }
+          else {
+            if (name == "Win") {
+              this.win();
+            }
+          }
         }
       }
-    }
-
-    if (this.nbPillule > 3) {
-      this.win();
     }
   };
 
@@ -115,7 +120,7 @@ class Avatar extends Agent {
     catch (e) {
       return false;
     }
-  }
+  };
 }
 
 Avatar.CODE = {37: {x: -1, y: 0}, 38: {x: 0, y: 1}, 39: {x: 1, y: 0}, 40: {x: 0, y: -1}};
