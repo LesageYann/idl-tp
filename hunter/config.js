@@ -34,7 +34,7 @@ var config = {
   },
   avatar : {
     speedModulo : 1,
-    invulnerableTime : 5
+    invulnerableTime : 10
   },
   render: "TableVue" // WebGLVue or TableVue
 };
