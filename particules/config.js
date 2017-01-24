@@ -1,15 +1,15 @@
 var config = {
   grid: {
-    toric: false,
+    toric: true,
     size: {
-      x: 600, //default 50
-      y: 400 //default 50
+      x: 200, //default 50
+      y: 100 //default 50
     }
   },
   canvasDisplay: true,
   canvasSize: {
-    x: 1200,
-    y: 800,
+    x: 800,
+    y: 400,
     unit: 'px'
   },
   box: {
@@ -17,14 +17,19 @@ var config = {
     unit: 'px'
   },
   delay: 200, //if delay null, manual refresh
+  delay: 10, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,
   panel: true,
-  seed: 'any string fyou like', //radom if null
-  refresh: 1, //if(tick%refresh ==0)
+  seed: 'any string', //radom if null
+  refresh: 10, //if(tick%refresh ==0)
   particules: {
-    Particule: 2000
+    //Particule: 4000,
+    ParticuleNathan: 4000
   },
   render: "TableVue" // WebGLVue or TableVue
+  possibleAgent: [ "Particule",
+  "ParticuleNathan" ],
+  render: "WebGLVue" // WebGLVue or TableVue
 };

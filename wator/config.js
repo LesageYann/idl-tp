@@ -29,6 +29,8 @@ var config = {
     SharkRandom: 100,
     //SharkRandomAdult: 100
   },
+  possibleAgent: [ "Fish",
+  "Shark", "SharkRandom", "SharkRandomAdult" ],
   fish: {
     breedTime: 2
   },
