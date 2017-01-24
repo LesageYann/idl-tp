@@ -1,6 +1,6 @@
 var config = {
   grid: {
-    toric: true,
+    toric: false,
     size: {
       x: 100, //default 50
       y: 80 //default 50
@@ -8,7 +8,7 @@ var config = {
   },
   canvasDisplay: true,
   canvasSize: {
-    x: 1000,
+    x: 1200,
     y: 600,
     unit: 'px'
   },
@@ -16,7 +16,7 @@ var config = {
     size: 10,
     unit: 'px'
   },
-  delay: 50, //if delay null, manual refresh
+  delay: 20, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,
@@ -24,16 +24,17 @@ var config = {
   seed: 'any string', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Fish: 400,
-    Shark: 10,
-    SharkRandom: 10
+    Fish: 200,
+    Shark: 100,
+    SharkRandom: 100,
+    //SharkRandomAdult: 100
   },
   fish: {
     breedTime: 2
   },
   shark: {
     breedTime: 8,
-    starveTime: 4
+    starveTime: 6
   },
   render: "TableVue" // WebGLVue or TableVue
 };

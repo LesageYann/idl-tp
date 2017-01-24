@@ -1,8 +1,14 @@
 class Environment {
   constructor(x, y, toric) {
+    this.init(x, y, toric);
+  }
+
+  init(x, y, toric) {
     this._x = x || 50;
     this._y = y || 50;
     this._toric = toric;
+    this.end = false;
+    this.win = false;
     this._plan = [];
     this._sma = {
       setChanged: function () {
@@ -37,6 +43,10 @@ class Environment {
     return this._y;
   };
 
+  getDistanceMax(){
+    return this.ySize() + this.xSize();
+  }
+
   setSMA(sma) {
     this._sma = sma;
     this.smaSet = true;
@@ -49,9 +59,33 @@ class Environment {
   }
 
   killAgent(agent) {
+    if(! agent.invulnerable) {
+      this._plan[agent.x()][agent.y()].agent = null;
+      this._sma.killAgent(agent);
+      agent.die();
+    }
+  }
+
+  killWithoutDie(agent){
+  if(! agent.invulnerable) {
     this._plan[agent.x()][agent.y()].agent = null;
     this._sma.killAgent(agent);
-    agent.die();
+  }
+  }
+
+  getRandomPos() {
+    return {
+      x: Math.floor(Math.random() * config.grid.size.x),
+      y: Math.floor(Math.random() * config.grid.size.y)
+    };
+  }
+
+  getFreeRandomPos() {
+    var pos = this.getRandomPos();
+    while (!this.isFree(pos)) {
+      pos = this.getRandomPos();
+    }
+    return pos;
   }
 
   /* change position on plan
@@ -192,4 +226,13 @@ class Environment {
     return this.ySize() + this.xSize();
   } 
 
+  getAgent(pos) {
+    return this._sma.getAgent(pos);
+  }
+
+  stop(agent) {
+    this._sma.stop(agent);
+    this.win = agent.isWin;
+    this.end = true;
+  }
 }

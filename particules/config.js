@@ -1,22 +1,22 @@
 var config = {
   grid: {
-    toric: true,
+    toric: false,
     size: {
-      x: 500, //default 50
-      y: 300 //default 50
+      x: 600, //default 50
+      y: 400 //default 50
     }
   },
   canvasDisplay: true,
   canvasSize: {
-    x: 1000,
-    y: 600,
+    x: 1200,
+    y: 800,
     unit: 'px'
   },
   box: {
-    size: 2,
+    size: 4,
     unit: 'px'
   },
-  delay: 10, //if delay null, manual refresh
+  delay: 200, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,
@@ -24,7 +24,7 @@ var config = {
   seed: 'any string fyou like', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Particule: 5000
+    Particule: 2000
   },
-  render: "WebGLVue" // WebGLVue or TableVue
+  render: "TableVue" // WebGLVue or TableVue
 };

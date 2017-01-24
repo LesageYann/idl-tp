@@ -18,8 +18,10 @@ function Trace( HTMLContainer, environment ) {
 
   this.root.appendChild( this._textFilename );
   this.root.appendChild( this._trigger );
-  document.getElementById( "panel" ).appendChild( this.root );
-
+  var panel = document.getElementById( "panel" );
+  if(panel) {
+    panel.appendChild(this.root);
+  }
   if ( Trace.initialized !== true ) {
 
     Trace.prototype.update = function ( agents, killed ) {
