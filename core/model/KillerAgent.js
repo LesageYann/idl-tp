@@ -3,6 +3,6 @@
 class KillerAgent extends Agent {
 
   eat( preyPos ) {
-    this._env.killAgent( this._env.getCase( preyPos ) );
+    this._env.killAgent( this._env.getCase( preyPos ).agent );
   }
 }
