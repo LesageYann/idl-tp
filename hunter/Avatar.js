@@ -7,15 +7,10 @@ class Avatar extends KillerAgent {
     style = "url('../images/avatar.gif')";
 
     super(x, y, env, style);
-    var self = this;
     this.invulnerable = 0;
     this.nbPillule = 0;
-    this.letterBox = {lastDirection: {x: 0, y: 0}, direction: {x: 0, y: 0}};
+    this.letterBox = this._env.getLetterBox();
     this._dijkstra();
-
-    window.onkeydown = function (e) {
-      self.onKeyDown(e);
-    };
   };
 
   die(){
@@ -23,14 +18,6 @@ class Avatar extends KillerAgent {
       this._env.stop(false);
     }
   }
-
-  onKeyDown(e) {
-    var code = e.keyCode ? e.keyCode : e.which;
-    if (this.constructor.CODE[code]) {
-      this.letterBox.lastDirection = this.letterBox.direction;
-      this.letterBox.direction = this.constructor.CODE[code];
-    }
-  };
 
   decide() {
     if (this.invulnerable) {
@@ -133,6 +120,5 @@ class Avatar extends KillerAgent {
   };
 }
 
-Avatar.CODE = {37: {x: -1, y: 0}, 38: {x: 0, y: 1}, 39: {x: 1, y: 0}, 40: {x: 0, y: -1}};
 Avatar.speedModulo = config.avatar.speedModulo || 1;
 Avatar.invulnerableTime = config.avatar.invulnerableTime;

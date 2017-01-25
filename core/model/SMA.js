@@ -13,17 +13,13 @@ class SMA {
   }
 
   run() {
-    self = this;
-    self._tick = 1;
-    self._inTurn = false;
-    if (config.delay != 0) {
-      self._intervalID = window.setInterval(function () {
-        self.launchTurn(self);
-      }, config.delay);
-    }
+    this._tick = 1;
+    this._inTurn = false;
+    this.resume();
   };
 
-  rerun(){
+  resume(){
+    self = this;
     if (config.delay != 0) {
       self._intervalID = window.setInterval(function () {
         self.launchTurn(self);
@@ -37,6 +33,8 @@ class SMA {
 
   addAgent(agent) {
     this._agents.push(agent);
+    console.log(agent)
+    console.log(this._agents[this._agents.length-1]==agent);
     this._counter[agent.constructor.name] = this._counter[agent.constructor.name] + 1;
   }
 

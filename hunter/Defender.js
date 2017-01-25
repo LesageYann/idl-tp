@@ -27,10 +27,8 @@ class Defender extends Agent {
       this.nbEat++;
     }
     var nbEat = this.nbEat;
-    console.log(nbEat, expire)
     if (nbEat < 4) {
-      var ag =new this.constructor(pos.x, pos.y, this._env, null, nbEat)
-      console.log(ag== this, this == this,ag)
+      var ag =new this.constructor(pos.x, pos.y, this._env, this._style, nbEat)
       this._env.addAgent(ag);
     }
     else {

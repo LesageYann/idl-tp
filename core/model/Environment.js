@@ -21,6 +21,7 @@ class Environment {
       }
     }
     this.smaSet = false;
+    this.command= new Listener( this);
   }
 
   _resetAllDistance() {
@@ -45,6 +46,10 @@ class Environment {
 
   getDistanceMax(){
     return this.ySize() + this.xSize();
+  }
+
+  getLetterBox(){
+    return this.command.letterBox;
   }
 
   setSMA(sma) {
@@ -229,6 +234,11 @@ class Environment {
 
   getAgent(pos) {
     return this._sma.getAgent(pos);
+  }
+
+  pause() {
+    this.inPause = !this.inPause
+    this.inPause ? this._sma.stop() : this._sma.resume();
   }
 
   stop(win) {
