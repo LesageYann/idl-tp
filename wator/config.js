@@ -3,7 +3,7 @@ var config = {
     toric: false,
     size: {
       x: 100, //default 50
-      y: 80 //default 50
+      y: 60 //default 50
     }
   },
   canvasDisplay: true,
@@ -24,8 +24,8 @@ var config = {
   seed: 'any string', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Fish: 200,
-    Shark: 100,
+    Fish: 400,
+    //Shark: 100,
     SharkRandom: 100,
     //SharkRandomAdult: 100
   },
@@ -36,7 +36,7 @@ var config = {
   },
   shark: {
     breedTime: 8,
-    starveTime: 6
+    starveTime: 4
   },
   render: "TableVue" // WebGLVue or TableVue
 };

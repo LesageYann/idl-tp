@@ -21,7 +21,9 @@ class Environment {
       }
     }
     this.smaSet = false;
-    this.command= new Listener( this);
+    if(config.Listener){
+      this.command= new Listener( this);
+    }
   }
 
   _resetAllDistance() {

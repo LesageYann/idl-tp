@@ -11,11 +11,7 @@ class Animal extends KillerAgent {
     if ( this.isAlive ) {
       var possible = this._perception();
       if ( possible.length > 0 ) {
-        //  try {
         this._move( this.chosePossibleMove( possible ) );
-        //  } catch ( e ) {
-        //if the case don't exist we do nothing
-        //  }
       }
       this.breed();
     }
