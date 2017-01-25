@@ -28,7 +28,6 @@ var config = {
     //Particule: 4000,
     ParticuleNathan: 4000
   },
-  render: "TableVue", // WebGLVue or TableVue
-  possibleAgent: [ "Particule", "ParticuleNathan" ],
-  render: "WebGLVue" // WebGLVue or TableVue
+  render: "WebGLVue", // WebGLVue or TableVue
+  possibleAgent: [ "Particule", "ParticuleNathan" ]
 };
