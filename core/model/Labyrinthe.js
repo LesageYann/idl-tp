@@ -8,8 +8,13 @@ class Labyrinthe extends Environment {
     super.setSMA(sma);
     for (var index = 0; index <   this._wallPositions.length; index++) {
       var pos =   this._wallPositions[index];
-      this.addAgent(createAgent('Wall', pos.x, pos.y, this));
+      this.addAgent(createAgent('Wall', pos.x, pos.y, this), true);
     }
+  }
+
+  addAgent(agent, force) {
+    if(force || !(agent instanceof Wall))
+      super.addAgent(agent);
   }
 
   createLabyrinthe () {
