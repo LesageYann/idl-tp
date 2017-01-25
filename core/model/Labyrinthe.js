@@ -1,18 +1,21 @@
 class Labyrinthe extends Environment {
   constructor( x, y, toric ) {
     super( x, y, toric );
-    var positions = this.createLabyrinthe();
+    this._wallPositions = this.createLabyrinthe();
+  }
 
-    for (var index = 0; index < positions.length; index++) {
-      var pos = positions[index];
+  setSMA(sma){
+    super.setSMA(sma);
+    for (var index = 0; index <   this._wallPositions.length; index++) {
+      var pos =   this._wallPositions[index];
       this.addAgent(createAgent('Wall', pos.x, pos.y, this));
     }
   }
 
   createLabyrinthe () {
     //Initialisation des variables utilisées dans le code
-    var xMax = Game.env.xSize();
-    var yMax = Game.env.ySize();
+    var xMax = this._x;
+    var yMax = this._y;
 
     var map = new Array(xMax);
     var pile = new Array();

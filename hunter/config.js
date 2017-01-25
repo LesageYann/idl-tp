@@ -6,7 +6,7 @@ var config = {
       y: 30 //default 50
     }
   },
-  labyrinth : false,
+  env: "Labyrinthe",
   canvasDisplay: true,
   canvasSize: {
     x: 1000,

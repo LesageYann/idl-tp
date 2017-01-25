@@ -32,26 +32,22 @@ class Main{
           pos.y = Math.floor( Math.random() * config.grid.size.y );
         }
         agents.push( createAgent( keys[ i ], pos.x, pos.y, this.env ) );
-        this.env.moveAgent( agents[ agents.length - 1 ], {
-          x: pos.x,
-          y: pos.y
-        } );
+        this.env.addAgent( agents[ agents.length - 1 ] );// add in env and SMA
       }
     }
     this.agents=agents
-    return agents;
   }
 
   createSimu() {
     //make the Math.random predictible and reproducible
     Math.seedrandom( config.seed || Math.random() + '' );
 
-    this.env = new Environment( config.grid.size.x, config.grid.size.y, config.grid.toric );
+    this.env = this.createEnv();
     this.vue = createVue( config.render || "TableVue", document.getElementById( 'view' ), this.env );
 
-    this.sma = new SMA(
-      this.createAgents( config.particules ), config.particules );
+    this.sma = new SMA([], config.particules );
     this.env.setSMA( this.sma );
+    this.createAgents(config.particules);
     this.sma.addObserver( this.vue );
     this.vue.update( this.agents );
     this.createTrace();
@@ -59,6 +55,10 @@ class Main{
 
     this.sma.run();
 
+  }
+
+  createEnv(){
+    return new ( window.eval( config.env || "Environment" ) )( config.grid.size.x, config.grid.size.y, config.grid.toric );
   }
 
   deleteSimu(){
