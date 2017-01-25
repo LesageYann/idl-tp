@@ -23,7 +23,7 @@ class Environment {
     this.smaSet = false;
     if(config.Listener){
       this.command= new Listener( this);
-    }
+    } 
   }
 
   _resetAllDistance() {
@@ -66,19 +66,8 @@ class Environment {
   }
 
   killAgent(agent) {
-    if(! agent.invulnerable) {
-      this._plan[agent.x()][agent.y()].agent = null;
-      this._sma.killAgent(agent);
-      if(agent.isAlive)// must be clean when refactor
-        agent.die();
-    }
-  }
-
-  killWithoutDie(agent){
-  if(! agent.invulnerable) {
     this._plan[agent.x()][agent.y()].agent = null;
     this._sma.killAgent(agent);
-  }
   }
 
   getRandomPos() {

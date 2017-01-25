@@ -6,6 +6,7 @@ var config = {
       y: 30 //default 50
     }
   },
+  listener: "Listener",
   env: "Labyrinthe",
   canvasDisplay: true,
   canvasSize: {

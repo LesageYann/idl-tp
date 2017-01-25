@@ -17,22 +17,9 @@ class Agent {
     this.isAlive = true;
   }
 
- /* not the good place
- we never say wath make to a agent !
-  win() {
-    this.isWin = true;
-    this._env.stop(this);
-  };
-
-  lose() {
-    this.isWin = false;
-    this._env.stop(this);
-    this.die();
-  };*/
-
   die() {
     this.isAlive = false;
-      this._env.killAgent(this);
+    this._env.killAgent(this);
   }
 
   x() {
