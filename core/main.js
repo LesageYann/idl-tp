@@ -1,73 +1,92 @@
-var main;
+class Main{
+  constructor(){
+    this.isinit=true;
+  }
 
-window.onload = function () {
-  var sma, vue, env, trace;
-  var agents = [];
-  //make the Math.random predictible and reproducible
-  Math.seedrandom(config.seed || Math.random() + '');
-  
-  function createAgents(particules) {
-    var keys = Object.keys(particules);
+  createTrace() {
+    if ( config.trace ) {
+      this.trace = new Trace( null, this.env );
+      this.sma.addObserver( this.trace );
+    }
+  }
+
+  createPanel() {
+    if ( config.panel ) {
+      this.panel = new PanelVue( document.getElementById( 'panel' ), this.env );
+      this.sma.addObserver( this.panel );
+    }
+  }
+
+  createAgents( particules ) {
+    var agents = [];
+    var keys = Object.keys( particules );
     var pos = {
-      x: Math.floor(Math.random() * config.grid.size.x),
-      y: Math.floor(Math.random() * config.grid.size.y)
+      x: Math.floor( Math.random() * config.grid.size.x ),
+      y: Math.floor( Math.random() * config.grid.size.y )
     };
-    
-    for (var i = 0; i < keys.length; i++) {
-      for (j = particules[keys[i]]; j > 0; j--) {
-        while (!env.isFree(pos)) {
-          pos.x = Math.floor(Math.random() * config.grid.size.x);
-          pos.y = Math.floor(Math.random() * config.grid.size.y);
+
+    for ( var i = 0; i < keys.length; i++ ) {
+      for ( var j = particules[ keys[ i ] ]; j > 0; j-- ) {
+        while ( !this.env.isFree( pos ) ) {
+          pos.x = Math.floor( Math.random() * config.grid.size.x );
+          pos.y = Math.floor( Math.random() * config.grid.size.y );
         }
-        agents.push(createAgent(keys[i], pos.x, pos.y, env));
-        env.moveAgent(agents[agents.length - 1], {
-          x: pos.x,
-          y: pos.y
-        });
+        agents.push( createAgent( keys[ i ], pos.x, pos.y, this.env ) );
+        this.env.addAgent( agents[ agents.length - 1 ] );// add in env and SMA
       }
     }
-    sma = new SMA(agents, config.particules);
-    env.setSMA(sma);
-    sma.addObserver(vue);
-    vue.update(agents);
+    this.agents=agents
   }
-  
-  function createTrace() {
-    if (config.trace) {
-      trace = new Trace(null, env);
-      sma.addObserver(trace);
-    }
+
+  createSimu() {
+    //make the Math.random predictible and reproducible
+    Math.seedrandom( config.seed || Math.random() + '' );
+
+    this.env = this.createEnv();
+    this.vue = createVue( config.render || "TableVue", document.getElementById( 'view' ), this.env );
+
+    this.sma = new SMA([], config.particules );
+    this.env.setSMA( this.sma );
+    this.createAgents(config.particules);
+    this.sma.addObserver( this.vue );
+    this.vue.update( this.agents );
+    this.createTrace();
+    this.createPanel();
+
+    this.sma.run();
+
   }
-  
-  function createPanel() {
-    if (config.panel) {
-      panel = new PanelVue(document.getElementById('panel'), env);
-      sma.addObserver(panel);
-    }
+
+  createEnv(){
+    return new ( window.eval( config.env || "Environment" ) )( config.grid.size.x, config.grid.size.y, config.grid.toric );
   }
-  
-  env = new Environment(config.grid.size.x, config.grid.size.y, config.grid.toric);
-  vue = createVue(config.render || "TableVue", document.getElementById('view'), env);
-  
-  createAgents(config.particules);
-  createTrace();
-  createPanel();
-  
-  sma.run();
-  
-  main = {
-    nextTick: function () {
-      sma.launchTurn();
-    },
-    agents: function () {
-      return agents;
-    },
-    printAgents: function () {
-      var res = "";
-      for (i = 0; i < agents.length; i++) {
-        res = res + "x: " + agents[i].x() + " y: " + agents[i].y() + "\n";
-      }
-      return res;
+
+  deleteSimu(){
+      this.sma.killAllAgents();
+  }
+
+  newSimu(){
+    this.deleteSimu();
+    this.createSimu();
+  }
+
+  printAgents () {
+    var res = "";
+    for ( i = 0; i < agents.length; i++ ) {
+      res = res + "x: " + agents[ i ].x() + " y: " + agents[ i ].y() + "\n";
     }
-  };
-};
+    return res;
+  }
+
+  nextTick () {
+    this.sma.launchTurn();
+  }
+
+  getAgents () {
+    return this.agents;
+  }
+}
+
+var main = new Main();
+
+window.onload = function(){main.createSimu()};

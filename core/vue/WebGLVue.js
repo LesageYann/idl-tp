@@ -36,7 +36,7 @@ class WebGLVue {
 
     var geometry = new THREE.PlaneGeometry( width, height );
     var material = new THREE.MeshBasicMaterial( {
-      color: 0x555577
+      color: 0x222222
     } );
     var plane = new THREE.Mesh( geometry, material );
     plane.position.x = w;
@@ -50,11 +50,9 @@ class WebGLVue {
 
     var render = function ( agents, agentToKill ) {
       agentToKill = agentToKill || [];
-      console.log( agentToKill )
       for ( var i = 0; i < agentToKill.length; i++ ) {
         if ( agentToKill[ i ].geometry != null ) {
           this._scene.remove( agentToKill[ i ].geometry );
-          console.log( "remove" );
         }
       }
       for ( var i = 0; i < agents.length; i++ ) {
@@ -67,7 +65,6 @@ class WebGLVue {
             this.getColorMaterial( material, agents[ i ].color() );
         }
       }
-      console.log( "render" )
       renderer.render( scene, camera );
     };
     this._render = render;

@@ -3,38 +3,45 @@
 
 class Particule extends Agent {
 
-  constructor( x, y, env, style ) {
-    super( x, y, env );
+  constructor(x, y, env, style) {
+    super(x, y, env);
+
   };
 
   decide() {
-    var pos = {
-      x: this._pos.x + this.offset.x,
-      y: this._pos.y + this.offset.y
-    };
-    this._move( pos, this.offset );
+    this._move(null, this.offset);
   };
 
-  _move( pos, offset ) {
-    var agent;
+  _move(pos, offset) {
     try {
-      agent = this._env.getCase( pos );
-      if ( agent != null ) {
+      if (!pos) {
+        pos = {
+          x: this._pos.x + this.offset.x,
+          y: this._pos.y + this.offset.y
+        };
+      }
+      var agent;
+      agent = this._env.getCase(pos).agent;
+      if (agent != null) {
         this.offset = agent.offset;
         agent.offset = offset;
         this._changeDir = true;
       } else {
         this._changeDir = false;
-        this._env.moveAgent( this, pos );
-        this.setPos( pos );
+        this._env.moveAgent(this, pos);
+        this.setPos(pos);
       }
-    } catch ( e ) {
-      if ( offset == null ) {
-        throw e;
+    } catch (e) {
+      if (!offset) {
+        this.offset = {
+          x: Math.floor(Math.random() * 3 - 1),
+          y: Math.floor(Math.random() * 3 - 1)
+        };
+        offset = this.offset;
       }
-      pos[ e.direction ] = this._pos[ e.direction ] - offset[ e.direction ];
-      offset[ e.direction ] = -offset[ e.direction ];
-      this._move( pos, offset );
+      pos[e.direction] = this._pos[e.direction] - offset[e.direction];
+      offset[e.direction] = -offset[e.direction];
+      this._move(pos, offset);
     }
   };
 }

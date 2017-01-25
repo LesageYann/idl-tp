@@ -3,9 +3,9 @@
 
 class Wall extends Agent {
 
-  constructor( x, y, env, style ) {
+  constructor(x, y, env, style) {
     style = "url('../images/wall.png')";
-    super( x, y, env, style );
+    super(x, y, env, style);
   };
 
   decide() {

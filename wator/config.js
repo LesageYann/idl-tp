@@ -24,17 +24,19 @@ var config = {
   seed: 'any string', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Fish: 4000,
-    //Shark: 100,
-    //SharkRandom: 100,
-    SharkRandomAdult: 100
+    Fish: 200,
+    Shark: 100,
+    SharkRandom: 100,
+    //SharkRandomAdult: 100
   },
+  possibleAgent: [ "Fish",
+  "Shark", "SharkRandom", "SharkRandomAdult" ],
   fish: {
     breedTime: 2
   },
   shark: {
     breedTime: 8,
-    starveTime: 4
+    starveTime: 6
   },
   render: "TableVue" // WebGLVue or TableVue
 };
