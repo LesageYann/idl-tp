@@ -77,7 +77,7 @@ class TableVue {
   }
 
   init() {
-    this._basicStyle = "table{border-collapse: collapse;width:" +
+    this._basicStyle = ".alert{position: relative;top: 200px; display: inline-block;left: 50%;}table{border-collapse: collapse;width:" +
       ( config.grid.size.x * config.box.size ) + config.box.unit +
       "}#view{width:" + config.canvasSize.x + config.canvasSize.unit +
       ";height:" + config.canvasSize.y + config.canvasSize.unit +
