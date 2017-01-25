@@ -10,7 +10,7 @@ var config = {
   canvasDisplay: true,
   canvasSize: {
     x: 1000,
-    y: 600,
+    y: 700,
     unit: 'px'
   },
   box: {
@@ -18,7 +18,7 @@ var config = {
     unit: 'px'
   },
   delay: 200, //if delay null, manual refresh
-  sheduling: "fair", //value radom, sequential,fair
+  sheduling: "sequential", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,
   panel: true,

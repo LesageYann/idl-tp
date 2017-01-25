@@ -46,6 +46,7 @@ class Avatar extends KillerAgent {
 
   _eatPillule(pos) {
     this.eat(pos);
+    this.invulnerable=Avatar.invulnerableTime;
     this.nbPillule++;
   };
 
@@ -121,4 +122,4 @@ class Avatar extends KillerAgent {
 }
 
 Avatar.speedModulo = config.avatar.speedModulo || 1;
-Avatar.invulnerableTime = config.avatar.invulnerableTime;
+Avatar.invulnerableTime = config.avatar.invulnerableTime || 10;

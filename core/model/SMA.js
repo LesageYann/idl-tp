@@ -33,8 +33,6 @@ class SMA {
 
   addAgent(agent) {
     this._agents.push(agent);
-    console.log(agent)
-    console.log(this._agents[this._agents.length-1]==agent);
     this._counter[agent.constructor.name] = this._counter[agent.constructor.name] + 1;
   }
 
