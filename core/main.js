@@ -45,7 +45,7 @@ class Main{
     this.env = this.createEnv();
     this.vue = createVue( config.render || "TableVue", document.getElementById( 'view' ), this.env );
 
-    this.sma = new SMA([], config.particules );
+    this.sma = new SMA( config.particules );
     this.env.setSMA( this.sma );
     this.createAgents(config.particules);
     this.sma.addObserver( this.vue );
@@ -62,6 +62,7 @@ class Main{
   }
 
   deleteSimu(){
+      this.sma.stop();
       this.sma.killAllAgents();
       delete this.sma;
       document.getElementById("view").innerHTML="";

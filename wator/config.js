@@ -17,7 +17,7 @@ var config = {
     size: 10,
     unit: 'px'
   },
-  delay: 20, //if delay null, manual refresh
+  delay: 1000, //if delay null, manual refresh
   sheduling: "fair", //value radom, sequential,fair
   nbTicks: 0, //infinite if 0
   trace: true,
@@ -25,10 +25,10 @@ var config = {
   seed: 'any string', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    //Fish: 400,
+    Fish: 400,
     //Shark: 100,
     //SharkRandom: 100,
-    SharkRandomAdult: 100
+    SharkRandomAdult: 500
   },
   possibleAgent: [ "Fish",
   "Shark", "SharkRandom", "SharkRandomAdult" ],

@@ -4,7 +4,7 @@ class SharkRandomAdult extends SharkRandom {
 
   _builderAddPos( pos, prey, free ) {
     try {
-      var agent = this._env.getCase( pos );
+      var agent = this._env.getCase( pos ).agent;
       if ( agent == null ) {
         free.push( pos );
       } else if ( agent instanceof Fish ) {

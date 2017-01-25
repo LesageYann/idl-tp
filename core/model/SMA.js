@@ -1,13 +1,13 @@
 class SMA {
-  constructor(agents, counter) {
-    this._agents = agents;
+  constructor(counter) {
+    this._agents = [];
     this._observers = [];
     this._hasChanged = false;
     this._tick = 0;
     this._counter = {};
     var keys = Object.keys(counter);
     for (var i = 0; i < keys.length; i++) {
-      this._counter[keys[i]] = counter[keys[i]];
+      this._counter[keys[i]] = 0;
     }
     this._toKill = [];
   }

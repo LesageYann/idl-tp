@@ -1,5 +1,7 @@
 # idl-tp
 
+Pour sélectionner la simulation, ouvrez le fichier index.html dans votre navigateur. Utilisez de préférence Chrome.
+
 ##benchmark
 
 ###pour 1000 tours sans vue
