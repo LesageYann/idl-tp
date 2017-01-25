@@ -2,6 +2,8 @@
 
 Pour sélectionner la simulation, ouvrez le fichier index.html dans votre navigateur. Utilisez de préférence Chrome.
 
+repo : https://github.com/Valtena/idl-tp
+
 ##benchmark
 
 ###pour 1000 tours sans vue
