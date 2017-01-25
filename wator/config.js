@@ -6,6 +6,7 @@ var config = {
       y: 60 //default 50
     }
   },
+  ToucheBinding: true,
   canvasDisplay: true,
   canvasSize: {
     x: 1200,
@@ -24,10 +25,10 @@ var config = {
   seed: 'any string', //radom if null
   refresh: 1, //if(tick%refresh ==0)
   particules: {
-    Fish: 400,
+    //Fish: 400,
     //Shark: 100,
-    SharkRandom: 100,
-    //SharkRandomAdult: 100
+    //SharkRandom: 100,
+    SharkRandomAdult: 100
   },
   possibleAgent: [ "Fish",
   "Shark", "SharkRandom", "SharkRandomAdult" ],

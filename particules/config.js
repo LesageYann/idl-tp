@@ -6,6 +6,7 @@ var config = {
       y: 100 //default 50
     }
   },
+  ToucheBinding: true,
   canvasDisplay: true,
   canvasSize: {
     x: 800,

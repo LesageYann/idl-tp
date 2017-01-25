@@ -63,6 +63,9 @@ class Main{
 
   deleteSimu(){
       this.sma.killAllAgents();
+      delete this.sma;
+      document.getElementById("view").innerHTML="";
+      document.getElementById("panel").innerHTML="";
   }
 
   newSimu(){

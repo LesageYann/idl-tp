@@ -37,9 +37,10 @@ class PanelVue {
 
   custom() {
     for ( var i = 0; i < config.possibleAgent.length; i++ ) {
-      config.particules[ config.possibleAgent[ i ] ] = this._form[ config.possibleAgent[ i ] ].value || config.particules[ config.possibleAgent[ i ] ];
+      config.particules[ config.possibleAgent[ i ] ] = parseInt(this._form[ config.possibleAgent[ i ] ].value) || 0;
+      console.log(config.possibleAgent[ i ] ,config.particules[ config.possibleAgent[ i ] ])
     }
-    this._env.restart();
+    main.newSimu();
   }
 
   update(agents) {

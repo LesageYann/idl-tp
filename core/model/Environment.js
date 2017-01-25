@@ -21,9 +21,9 @@ class Environment {
       }
     }
     this.smaSet = false;
-    if(config.Listener){
+    if(config.ToucheBinding){
       this.command= new Listener( this);
-    } 
+    }
   }
 
   _resetAllDistance() {

@@ -6,7 +6,7 @@ var config = {
       y: 30 //default 50
     }
   },
-  listener: "Listener",
+  ToucheBinding: true,
   env: "Labyrinthe",
   canvasDisplay: true,
   canvasSize: {

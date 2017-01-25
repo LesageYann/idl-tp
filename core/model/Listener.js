@@ -69,13 +69,17 @@ class Listener {
   }
 
   speedUp(prototype){
-    if(prototype.speedModulo >2)
-      prototype.speedModulo -= Listener.deltaSpeed;
+    try{
+      if(prototype.speedModulo >2)
+        prototype.speedModulo -= Listener.deltaSpeed;
+    } catch(e){}
   }
 
   speedDown(prototype){
-    if(prototype.speedModulo <29)
-      prototype.speedModulo += Listener.deltaSpeed;
+    try{
+      if(prototype.speedModulo <29)
+        prototype.speedModulo += Listener.deltaSpeed;
+    } catch(e){}
   }
 }
 
